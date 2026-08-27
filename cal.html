@@ -56,7 +56,7 @@
   .sheet-open{display:inline-block;margin-bottom:9px;border:1px solid var(--line);border-radius:4px;
     padding:7px 13px;font-size:12.5px;font-weight:700;color:var(--ink);text-decoration:none;background:var(--card)}
   .avatar{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:800;color:#fff;border:0}
-  .av-admin{background:var(--pur)} .av-lead{background:var(--red)} .av-staff{background:var(--blu)}
+  .av-admin,.av-lead,.av-staff{background:var(--ink)}
 
   /* ===== view switcher ===== */
   .views{display:flex;padding:0 16px;border-bottom:1px solid var(--line);gap:2px;
@@ -263,7 +263,7 @@
     </div>
 
     <div class="sec">
-      <div class="sec-t"><i class="sq ev"></i>주요 일정 <span class="r">운영팀</span></div>
+      <div class="sec-t"><i class="sq ev"></i>주요 일정</div>
       <div id="ev-list"></div>
       <div class="add" id="ev-add" style="display:none">
         <input class="tm-in" id="ev-tm" type="text" placeholder="14:00" inputmode="numeric">
@@ -273,7 +273,7 @@
     </div>
 
     <div class="sec">
-      <div class="sec-t"><i class="sq is"></i>특이사항 · 요청 <span class="r">운영팀</span></div>
+      <div class="sec-t"><i class="sq is"></i>특이사항 · 요청</div>
       <div id="is-list"></div>
       <div class="add" id="is-add" style="display:none">
         <div class="seg" id="is-seg"><button data-t="특이" class="on">특이</button><button data-t="요청">요청</button></div>
@@ -283,7 +283,7 @@
     </div>
 
     <div class="sec">
-      <div class="sec-t"><i class="sq sh"></i>업무 공유 <span class="r">전체</span></div>
+      <div class="sec-t"><i class="sq sh"></i>업무 공유</div>
       <div id="sh-list"></div>
       <div class="add">
         <input type="text" id="sh-inp" placeholder="+ 공유·인계 (예: 3번 작품 소음, 리플렛 보충)">
@@ -425,7 +425,9 @@ let selDay = clampKey(todayKey);
 let curView = 'month';
 let staffSel = localStorage.getItem('atc-cal-staff') || '';
 const myName = ()=> meId==='staff' ? (staffSel||me.name) : me.name; // 공용 계정만 이름 선택
-const canManage = ()=> me.role==='admin'||me.role==='lead'; // 일정·근무·연락처·특이 편집 권한
+const canManage = ()=> true; // 2026-08-28 클라라 결정: 모든 접근자 모든 권한
+/* 작성자별 글색 — 조아라·클라라 빨강 / 조주리 파랑 / 변채린 보라 / 양채원 초록 / 나머지 블랙 */
+const inkOf = n => ({'조아라':'var(--red)','클라라':'var(--red)','조주리':'var(--blu)','변채린':'var(--pur)','양채원':'var(--grn-ink)'}[n]||'inherit');
 
 /* ── 로그인 ── */
 $('login-btn').addEventListener('click', doLogin);
@@ -585,7 +587,7 @@ function renderDay(){
   /* 주요 일정 */
   const fixed=(FIXED[k]||[]).map(f=>'<div class="item fx"><span class="tm">'+(f.tm||'—')+'</span><span class="txt">'+esc(f.t)+'</span><span class="lock">고정</span></div>').join('');
   const evs=Object.entries(evCache[k]||{}).sort((a,b)=>(a[1].tm||'99')<(b[1].tm||'99')?-1:1)
-    .map(([id,e])=>'<div class="item"><span class="tm">'+(e.tm?esc(e.tm):'—')+'</span><span class="txt">'+esc(e.text)+'</span>'
+    .map(([id,e])=>'<div class="item"><span class="tm">'+(e.tm?esc(e.tm):'—')+'</span><span class="txt" style="color:'+inkOf(e.by)+'">'+esc(e.text)+'</span>'
       +'<span class="by">'+esc(e.by||'')+'</span>'
       +(canManage()?'<button class="del" data-del-ev="'+id+'">✕</button>':'')+'</div>').join('');
   $('ev-list').innerHTML=(fixed+evs)||'<div class="empty">등록된 일정 없음</div>';
@@ -593,14 +595,14 @@ function renderDay(){
   /* 특이·요청 */
   const iss=Object.entries(isCache[k]||{}).sort((a,b)=>a[1].ts-b[1].ts)
     .map(([id,e])=>'<div class="item"><span class="chip '+(e.type==='요청'?'i2':'i1')+'">'+esc(e.type||'특이')+'</span>'
-      +'<span class="txt">'+esc(e.text)+'</span><span class="by">'+esc(e.by||'')+' '+esc(e.at||'')+'</span>'
+      +'<span class="txt" style="color:'+inkOf(e.by)+'">'+esc(e.text)+'</span><span class="by">'+esc(e.by||'')+' '+esc(e.at||'')+'</span>'
       +(canManage()?'<button class="del" data-del-is="'+id+'">✕</button>':'')+'</div>').join('');
   $('is-list').innerHTML=iss||'<div class="empty">특이사항 없음</div>';
 
   /* 업무 공유 */
   const shs=Object.entries(shCache[k]||{}).sort((a,b)=>a[1].ts-b[1].ts)
     .map(([id,e])=>'<div class="item'+(e.done?' done':'')+'"><input type="checkbox" data-sh="'+id+'"'+(e.done?' checked':'')+'>'
-      +'<span class="txt">'+esc(e.text)+'</span><span class="by">'+(e.done?esc(e.doneBy||''):esc(e.by||''))+'</span>'
+      +'<span class="txt" style="color:'+inkOf(e.by)+'">'+esc(e.text)+'</span><span class="by">'+(e.done?esc(e.doneBy||''):esc(e.by||''))+'</span>'
       +'<button class="del" data-del-sh="'+id+'">✕</button></div>').join('');
   $('sh-list').innerHTML=shs||'<div class="empty">공유사항 없음</div>';
 
