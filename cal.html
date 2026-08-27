@@ -27,8 +27,7 @@
     line-height:1.5;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
   button{font-family:inherit;cursor:pointer}
   button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--red);outline-offset:2px}
-  .app{max-width:520px;margin:0 auto;min-height:100vh;background:var(--card);
-    border-left:1px solid var(--line);border-right:1px solid var(--line);display:none}
+  .app{max-width:520px;margin:0 auto;min-height:100vh;background:var(--paper);display:none}
 
   /* ===== login ===== */
   #login{display:none;min-height:100vh;flex-direction:column;justify-content:center;padding:32px 28px;
@@ -48,8 +47,7 @@
   #login .hint{font-size:11.5px;color:rgba(255,255,255,.45);margin-top:18px;line-height:1.7}
 
   /* ===== appbar ===== */
-  .appbar{display:flex;align-items:center;gap:10px;padding:14px 16px 10px;
-    background-image:var(--halftone);background-size:6px 6px}
+  .appbar{display:flex;align-items:center;gap:10px;padding:18px 18px 12px}
   .logo{font-weight:800;font-size:14px;border-bottom:2.5px dashed var(--red);padding-bottom:4px;line-height:1.15}
   .logo small{display:block;font-size:8.5px;letter-spacing:.14em;color:var(--ink2);font-weight:700}
   .clock{margin-left:auto;font-family:var(--num);font-weight:700;font-size:12px;color:var(--ink2)}
@@ -62,19 +60,18 @@
   .av-admin,.av-lead,.av-staff{background:#2b3247}
 
   /* ===== view switcher ===== */
-  .views{display:flex;padding:0 16px;border-bottom:1px solid var(--line);gap:2px;
-    position:sticky;top:0;background:var(--card);z-index:10;
-    background-image:var(--halftone);background-size:6px 6px}
-  .views button{border:0;background:none;padding:10px 14px 8px;font-size:13.5px;font-weight:700;color:var(--ink3);
-    border-bottom:2.5px solid transparent;margin-bottom:-1px}
-  .views button.on{color:var(--ink);border-bottom-color:var(--red)}
-  .views .contacts-btn{margin-left:auto;font-size:12px;color:var(--ink2)}
+  .views{display:flex;align-items:center;padding:6px 18px 14px;gap:7px;
+    position:sticky;top:0;background:var(--paper);z-index:10;border-bottom:1px solid var(--hair)}
+  .views button{border:1px solid var(--line);background:var(--card);border-radius:999px;
+    padding:7px 14px;font-size:13px;font-weight:800;color:var(--ink2)}
+  .views button.on{border-color:var(--red);background:var(--red-soft);color:var(--red)}
+  .views .contacts-btn{margin-left:auto;font-size:12px;padding:7px 11px}
 
-  .page{display:none;padding:14px 16px 48px}
+  .page{display:none;padding:18px 16px 64px}
   .page.on{display:block}
 
   /* ===== nav row ===== */
-  .navrow{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .navrow{display:flex;align-items:center;gap:10px;margin-bottom:14px}
   .navrow button{border:1px solid var(--line);background:var(--card);border-radius:3px;width:30px;height:30px;color:var(--ink2);font-size:14px}
   .navrow .cur{font-size:15px;font-weight:800}
   .navrow .cur small{font-family:var(--num);font-weight:600;color:var(--ink3);font-size:10.5px;margin-left:6px}
@@ -84,7 +81,7 @@
   .dow{display:grid;grid-template-columns:repeat(7,1fr);font-size:9.5px;font-weight:800;color:var(--ink3);
     text-align:center;letter-spacing:.08em;margin-bottom:3px}
   .dow i:last-child{color:var(--red)}
-  .grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}
+  .grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
   .cell{min-width:0}
   .cell{border:1px solid var(--hair);border-radius:4px;min-height:64px;padding:4px 4px 3px;background:var(--card);
     display:flex;flex-direction:column;gap:2px;position:relative;cursor:pointer}
@@ -105,7 +102,7 @@
   .legend .dot{width:7px;height:7px}
 
   /* ===== week list ===== */
-  .wday{border:1px solid var(--hair);border-radius:5px;padding:9px 11px;margin-bottom:7px;background:var(--card);cursor:pointer}
+  .wday{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px;background:var(--card);cursor:pointer}
   .wday.closed{background:var(--well)}
   .wday.today{border:2px solid var(--red)}
   .wday .h{display:flex;align-items:baseline;gap:7px;font-weight:800;font-size:13px}
@@ -118,7 +115,7 @@
   .wday .ln .t{font-family:var(--num);font-size:10px;color:var(--pur);font-weight:700;margin-right:4px}
 
   /* ===== day view ===== */
-  .dayhead{margin-bottom:12px}
+  .dayhead{margin:4px 2px 18px}
   .dayhead .big{font-size:19px;font-weight:800}
   .dayhead .big small{font-size:12px;color:var(--ink3);font-weight:700;margin-left:6px}
   .bdg{display:inline-block;font-size:10px;font-weight:800;border-radius:3px;padding:2px 7px;vertical-align:2px;margin-left:8px}
@@ -127,9 +124,10 @@
   .bdg.prep{background:var(--blu-soft);color:var(--blu)}
   .bdg.wrap{background:var(--pur-soft);color:var(--pur)}
 
-  .sec{margin-bottom:20px}
+  .sec{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:16px 15px 15px;margin-bottom:16px}
   .sec-t{font-size:11px;font-weight:800;letter-spacing:.1em;color:var(--ink2);
-    border-bottom:2px dashed var(--line);padding-bottom:4px;margin:0 0 8px;display:flex;align-items:center}
+    border-bottom:2px dashed var(--line);padding-bottom:7px;margin:0 0 12px;display:flex;align-items:center}
   .sec-t .sq{width:8px;height:8px;margin-right:7px;flex:none}
   .sq.ev{background:var(--pur)} .sq.is{background:var(--red)} .sq.sh{background:var(--blu)} .sq.ck{background:var(--grn)} .sq.st{background:var(--ink2)} .sq.rp{background:var(--grn-ink)}
   .rp-grid{display:grid;grid-template-columns:76px 1fr;gap:7px 9px;align-items:center}
@@ -140,7 +138,8 @@
   .sec-t .r{margin-left:auto;font-size:10px;font-weight:700;color:var(--ink3);letter-spacing:0}
   .sec-t button.r{border:1px solid var(--line);background:var(--card);border-radius:3px;padding:2px 9px;color:var(--ink2)}
 
-  .item{display:flex;align-items:flex-start;gap:9px;padding:8px 2px;border-bottom:1px solid var(--hair);font-size:14px}
+  .item{display:flex;align-items:flex-start;gap:9px;padding:10px 2px;border-bottom:1px solid var(--hair);font-size:14px}
+  .sec .item:last-of-type{border-bottom:0}
   .item .tm{flex:none;font-family:var(--num);font-size:11.5px;font-weight:700;color:var(--pur);padding-top:2px;min-width:38px}
   .item .txt{min-width:0;white-space:pre-wrap;word-break:break-word;flex:1}
   .item .by{flex:none;font-size:9.5px;color:var(--ink3);font-family:var(--num);padding-top:4px}
