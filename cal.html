@@ -194,12 +194,12 @@
   <h1>지킴이 <b>캘린더</b></h1>
   <div class="sub">인류학 연습 · 8.31 – 9.30 운영 일정</div>
   <label>이름</label>
-  <input id="id-inp" placeholder="클라라 / 진선 / staff" autocomplete="username">
-  <label>비밀번호 (6자리 이상)</label>
-  <input id="pw-inp" type="password" placeholder="처음 로그인 시 그대로 계정 생성" autocomplete="current-password">
+  <input id="id-inp" placeholder="본명 입력 (예: 조아라)" autocomplete="username">
+  <label>비밀번호 (4자리)</label>
+  <input id="pw-inp" type="password" placeholder="전달받은 4자리 번호" autocomplete="current-password" inputmode="numeric">
   <button id="login-btn">입장</button>
   <div id="login-err"></div>
-  <div class="hint">첫 로그인 때 입력한 비밀번호가 그대로 등록됩니다.<br>운영인력은 공용 계정 <b>staff</b>로 들어온 뒤 본인 이름을 선택하세요.</div>
+  <div class="hint">첫 로그인 때 입력한 비밀번호가 그대로 등록됩니다.<br>비밀번호를 모르면 관리자(클라라)에게 문의하세요.</div>
 </div>
 
 <div class="app" id="app">
@@ -343,15 +343,21 @@ setPersistence(auth, browserLocalPersistence).catch(()=>{});
 
 /* ── 사용자 ── */
 const USERS = {
-  clara:  {name:'클라라', role:'admin', av:'클', avCls:'av-admin'},
-  jinsun: {name:'진선',   role:'lead',  av:'진', avCls:'av-lead'},
-  staff:  {name:'지킴이', role:'staff', av:'지', avCls:'av-staff'},
+  clara:   {name:'클라라', role:'admin', av:'클', avCls:'av-admin'},
+  joara:   {name:'조아라', role:'admin', av:'조', avCls:'av-admin'},
+  chaewon: {name:'양채원', role:'admin', av:'양', avCls:'av-admin'},
+  juri:    {name:'조주리', role:'admin', av:'주', avCls:'av-admin'},
+  chaerin: {name:'변채린', role:'admin', av:'변', avCls:'av-admin'},
+  jinsun:  {name:'박진선', role:'lead',  av:'진', avCls:'av-lead'},
+  haeun:   {name:'박하은', role:'staff', av:'하', avCls:'av-staff'},
+  staff:   {name:'지킴이', role:'staff', av:'지', avCls:'av-staff'}, // 예비 공용(알바 등)
 };
-const NAME_TO_ID = {'클라라':'clara','진선':'jinsun','staff':'staff','지킴이':'staff'};
+const NAME_TO_ID = {'클라라':'clara','조아라':'joara','양채원':'chaewon','조주리':'juri','변채린':'chaerin',
+  '박진선':'jinsun','진선':'jinsun','박하은':'haeun','하은':'haeun','staff':'staff','지킴이':'staff'};
 const SUFFIX = '@atc.local';
-/* 근무 로스터 — 인력 확정되면 이 줄만 고치면 됨 */
-const ROSTER = ['진선','하은','지킴이2'];
-const STAFF_NAMES = ['하은','지킴이2'];
+/* 근무 로스터 (근무 인원 편집 후보) */
+const ROSTER = ['박진선','박하은','조아라','양채원'];
+const STAFF_NAMES = ['박하은'];
 
 /* ── 기간·고정 일정 (정본 = anthroydp.site 2026-08-27 실측) ── */
 const MIN='2026-08-31', MAX='2026-09-30';
@@ -418,16 +424,17 @@ let exCache={}, exDoneCache={}, exDate=null, exUnsub=[];
 let selDay = clampKey(todayKey);
 let curView = 'month';
 let staffSel = localStorage.getItem('atc-cal-staff') || '';
-const myName = ()=> me.role==='staff' ? (staffSel||me.name) : me.name;
+const myName = ()=> meId==='staff' ? (staffSel||me.name) : me.name; // 공용 계정만 이름 선택
 
 /* ── 로그인 ── */
 $('login-btn').addEventListener('click', doLogin);
 $('pw-inp').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
 async function doLogin(){
-  const raw=$('id-inp').value.trim(); const pw=$('pw-inp').value;
+  const raw=$('id-inp').value.trim(); let pw=$('pw-inp').value;
   const id=NAME_TO_ID[raw]||raw.toLowerCase();
-  if(!USERS[id]){$('login-err').textContent='등록된 이름이 아닙니다 (클라라 / 진선 / staff)';return;}
-  if(pw.length<6){$('login-err').textContent='비밀번호는 6자리 이상';return;}
+  if(!USERS[id]){$('login-err').textContent='등록된 이름이 아닙니다 (본명 입력: 조아라, 박진선 …)';return;}
+  if(pw.length<4){$('login-err').textContent='비밀번호는 4자리 이상';return;}
+  if(pw.length<6) pw+='#atc'; // Firebase 최소 6자 요건 — 4자리 코드용 고정 패딩
   $('login-err').textContent='확인 중...';
   try{ await signInWithEmailAndPassword(auth, id+SUFFIX, pw); }
   catch(err){
@@ -452,7 +459,7 @@ function enterApp(){
   const open=parseKey(EX_START), t=parseKey(todayKey);
   const dd=Math.round((open-t)/86400000);
   $('dday').textContent = dd>0?'개막 D-'+dd : (todayKey<=EX_END?'전시 D+'+(1-dd):'전시 종료');
-  if(me.role==='staff' && !staffSel){
+  if(meId==='staff' && !staffSel){
     const n=prompt('본인 이름을 선택하세요: '+STAFF_NAMES.join(' / '), STAFF_NAMES[0]);
     if(n){staffSel=n.trim(); localStorage.setItem('atc-cal-staff',staffSel);}
   }
