@@ -8,38 +8,41 @@
 <title>예술기술도시 지킴이 캘린더</title>
 <style>
   :root{
-    --paper:#F4F4F0; --card:#FFFFFF; --well:#ECEDE7;
-    --ink:#141613; --ink2:#585B54; --ink3:#9A9D93; --line:#DDDED7; --hair:#EAEBE5;
-    /* 포스터 4색 */
-    --grn:#1ED21E; --grn-ink:#0C8F38; --grn-soft:#E4F8E9;
-    --blu:#3A7BF0; --blu-soft:#E7EFFD;
-    --pur:#5944BB; --pur-soft:#ECE8F8;
-    --red:#F0604A; --red-soft:#FDE9E6;
+    /* 전시 홈페이지(anthroydp.site) 다크 톤앤매너 · 주조색 빨강 */
+    --paper:#0d0f15; --card:#151a26; --well:#1a2130;
+    --ink:#f0f2f7; --ink2:#a0a9c6; --ink3:#6d7694; --line:#27304a; --hair:#1f2740;
+    /* 포스터 4색 (다크 배경 변형) */
+    --grn:#1ED21E; --grn-ink:#1ED21E; --grn-soft:rgba(30,210,30,.13);
+    --blu:#3A7BF0; --blu-soft:rgba(58,123,240,.16);
+    --pur:#7D6DF2; --pur-soft:rgba(125,109,242,.16);
+    --red:#F0604A; --red-soft:rgba(240,96,74,.15);
     --num:ui-monospace,"SF Mono",Menlo,monospace;
-    --halftone:radial-gradient(circle,rgba(20,22,19,.09) 1px,transparent 1.1px);
+    --halftone:radial-gradient(circle,rgba(255,255,255,.05) 1px,transparent 1.1px);
   }
   *{box-sizing:border-box}
+  input,textarea{background:#0e1220;color:var(--ink)}
+  input::placeholder{color:var(--ink3)}
   html,body{margin:0;background:var(--paper);color:var(--ink);
     font-family:"Pretendard Variable",Pretendard,"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;
     line-height:1.5;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
   button{font-family:inherit;cursor:pointer}
-  button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--grn-ink);outline-offset:2px}
+  button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--red);outline-offset:2px}
   .app{max-width:520px;margin:0 auto;min-height:100vh;background:var(--card);
     border-left:1px solid var(--line);border-right:1px solid var(--line);display:none}
 
   /* ===== login ===== */
   #login{display:none;min-height:100vh;flex-direction:column;justify-content:center;padding:32px 28px;
-    background:var(--ink);background-image:radial-gradient(circle,rgba(30,210,30,.14) 1px,transparent 1.1px);
+    background:#0a0c11;background-image:radial-gradient(circle,rgba(240,96,74,.14) 1px,transparent 1.1px);
     background-size:7px 7px;color:#fff;max-width:520px;margin:0 auto}
   #login h1{font-size:24px;font-weight:800;margin:0 0 2px;color:#fff}
-  #login h1 b{color:var(--grn)}
+  #login h1 b{color:var(--red)}
   #login .sub{font-size:11px;letter-spacing:.16em;color:rgba(255,255,255,.55);font-weight:700;
-    border-bottom:2.5px dashed var(--grn);display:inline-block;padding-bottom:6px;margin-bottom:34px}
+    border-bottom:2.5px dashed var(--red);display:inline-block;padding-bottom:6px;margin-bottom:34px}
   #login label{display:block;font-size:11px;font-weight:800;letter-spacing:.1em;color:rgba(255,255,255,.6);margin:14px 0 5px}
   #login input{width:100%;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);border-radius:4px;
     padding:12px 13px;font-size:16px;color:#fff}
   #login input::placeholder{color:rgba(255,255,255,.35)}
-  #login button{width:100%;margin-top:22px;border:0;background:var(--grn);color:var(--ink);border-radius:4px;
+  #login button{width:100%;margin-top:22px;border:0;background:var(--red);color:#fff;border-radius:4px;
     padding:13px 0;font-size:15px;font-weight:800}
   #login-err{font-size:12.5px;color:#FF8A75;margin-top:12px;min-height:18px}
   #login .hint{font-size:11.5px;color:rgba(255,255,255,.45);margin-top:18px;line-height:1.7}
@@ -47,16 +50,16 @@
   /* ===== appbar ===== */
   .appbar{display:flex;align-items:center;gap:10px;padding:14px 16px 10px;
     background-image:var(--halftone);background-size:6px 6px}
-  .logo{font-weight:800;font-size:14px;border-bottom:2.5px dashed var(--grn);padding-bottom:4px;line-height:1.15}
+  .logo{font-weight:800;font-size:14px;border-bottom:2.5px dashed var(--red);padding-bottom:4px;line-height:1.15}
   .logo small{display:block;font-size:8.5px;letter-spacing:.14em;color:var(--ink2);font-weight:700}
   .clock{margin-left:auto;font-family:var(--num);font-weight:700;font-size:12px;color:var(--ink2)}
-  .dday{background:var(--grn);color:var(--ink);border-radius:3px;
+  .dday{background:var(--red);color:#fff;border-radius:3px;
     padding:2px 8px;font-weight:800;font-size:11px;font-family:var(--num)}
   #sheet-frame{width:100%;height:calc(100vh - 170px);border:1px solid var(--line);border-radius:5px;background:#fff}
   .sheet-open{display:inline-block;margin-bottom:9px;border:1px solid var(--line);border-radius:4px;
     padding:7px 13px;font-size:12.5px;font-weight:700;color:var(--ink);text-decoration:none;background:var(--card)}
   .avatar{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:800;color:#fff;border:0}
-  .av-admin,.av-lead,.av-staff{background:var(--ink)}
+  .av-admin,.av-lead,.av-staff{background:#2b3247}
 
   /* ===== view switcher ===== */
   .views{display:flex;padding:0 16px;border-bottom:1px solid var(--line);gap:2px;
@@ -64,7 +67,7 @@
     background-image:var(--halftone);background-size:6px 6px}
   .views button{border:0;background:none;padding:10px 14px 8px;font-size:13.5px;font-weight:700;color:var(--ink3);
     border-bottom:2.5px solid transparent;margin-bottom:-1px}
-  .views button.on{color:var(--ink);border-bottom-color:var(--ink)}
+  .views button.on{color:var(--ink);border-bottom-color:var(--red)}
   .views .contacts-btn{margin-left:auto;font-size:12px;color:var(--ink2)}
 
   .page{display:none;padding:14px 16px 48px}
@@ -88,7 +91,7 @@
   .cell.out{visibility:hidden;pointer-events:none}
   .cell.closed{background:var(--well);color:var(--ink3)}
   .cell.past{opacity:.55}
-  .cell.today{border:2px solid var(--grn);}
+  .cell.today{border:2px solid var(--red);}
   .cell .d{font-family:var(--num);font-size:11.5px;font-weight:700;line-height:1}
   .cell.sun .d{color:var(--red)}
   .cell .tag{font-size:8px;font-weight:800;line-height:1.2;border-radius:2px;padding:1px 3px;
@@ -104,7 +107,7 @@
   /* ===== week list ===== */
   .wday{border:1px solid var(--hair);border-radius:5px;padding:9px 11px;margin-bottom:7px;background:var(--card);cursor:pointer}
   .wday.closed{background:var(--well)}
-  .wday.today{border:2px solid var(--grn)}
+  .wday.today{border:2px solid var(--red)}
   .wday .h{display:flex;align-items:baseline;gap:7px;font-weight:800;font-size:13px}
   .wday .h .dt{font-family:var(--num)}
   .wday .h .sun{color:var(--red)}
@@ -147,22 +150,22 @@
   .item .chip{flex:none;font-size:9.5px;font-weight:800;border-radius:2px;padding:1px 6px;margin-top:3px}
   .chip.i1{background:var(--red-soft);color:var(--red)}
   .chip.i2{background:var(--blu-soft);color:var(--blu)}
-  .item input[type=checkbox]{width:19px;height:19px;accent-color:var(--grn-ink);margin-top:1px;flex:none}
+  .item input[type=checkbox]{width:19px;height:19px;accent-color:var(--red);margin-top:1px;flex:none}
   .item.done .txt{color:var(--ink3);text-decoration:line-through}
   .empty{font-size:12px;color:var(--ink3);padding:6px 2px}
 
   .add{display:flex;gap:6px;margin-top:8px}
   .add input[type=text]{flex:1;border:1px solid var(--line);border-radius:4px;padding:9px 11px;font-size:14px;min-width:0}
   .add input.tm-in{flex:none;width:64px;font-family:var(--num);text-align:center}
-  .add button{border:0;background:var(--ink);color:#fff;border-radius:4px;padding:0 14px;font-size:13px;font-weight:700}
+  .add button{border:0;background:var(--red);color:#fff;border-radius:4px;padding:0 14px;font-size:13px;font-weight:700}
   .seg{display:flex;border:1px solid var(--line);border-radius:4px;overflow:hidden;flex:none}
   .seg button{border:0;background:var(--card);padding:0 10px;font-size:11.5px;font-weight:700;color:var(--ink3)}
-  .seg button.on{background:var(--ink);color:#fff}
+  .seg button.on{background:var(--red);color:#fff}
 
   /* shift chips */
   .chips{display:flex;flex-wrap:wrap;gap:6px}
   .pchip{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:4px 12px;font-size:12.5px;font-weight:700;color:var(--ink2)}
-  .pchip.on{background:var(--grn-soft);border-color:var(--grn-ink);color:var(--grn-ink)}
+  .pchip.on{background:var(--red-soft);border-color:var(--red);color:var(--red)}
   .pchip.view{background:var(--well);border-color:transparent;color:var(--ink)}
 
   /* checklist */
@@ -175,15 +178,15 @@
   .ck-body .item{font-size:13px;padding:6px 0}
 
   /* contacts modal */
-  dialog{border:0;border-radius:8px;padding:0;max-width:88vw;width:340px}
+  dialog{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:0;max-width:88vw;width:340px}
   dialog::backdrop{background:rgba(20,22,19,.45)}
   .modal-h{display:flex;align-items:center;padding:13px 16px;border-bottom:2px dashed var(--line);font-weight:800;font-size:14px}
   .modal-h button{margin-left:auto;border:0;background:none;font-size:16px;color:var(--ink3)}
   .modal-b{padding:12px 16px 16px;font-size:13.5px;white-space:pre-wrap;line-height:1.8}
   .modal-b textarea{width:100%;min-height:180px;border:1px solid var(--line);border-radius:4px;padding:9px;font-size:13.5px;font-family:inherit}
-  .modal-b .save{margin-top:8px;border:0;background:var(--ink);color:#fff;border-radius:4px;padding:8px 16px;font-size:13px;font-weight:700}
+  .modal-b .save{margin-top:8px;border:0;background:var(--red);color:#fff;border-radius:4px;padding:8px 16px;font-size:13px;font-weight:700}
 
-  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:#232c42;border:1px solid var(--line);color:#fff;
     border-radius:4px;padding:8px 16px;font-size:12.5px;opacity:0;pointer-events:none;transition:.25s;z-index:99}
   .toast.show{opacity:1;transform:translateX(-50%)}
 </style>
@@ -721,7 +724,7 @@ $('shift-edit').addEventListener('click',()=>{
   const cur=new Set((shiftCache[selDay]&&shiftCache[selDay].names)||[]);
   const box=$('shift-chips');
   box.innerHTML=ROSTER.map(n=>'<button class="pchip'+(cur.has(n)?' on':'')+'" data-n="'+esc(n)+'">'+esc(n)+'</button>').join('')
-    +'<button class="pchip" id="shift-save" style="background:var(--ink);color:#fff;border-color:var(--ink)">저장</button>';
+    +'<button class="pchip" id="shift-save" style="background:var(--red);color:#fff;border-color:var(--red)">저장</button>';
   box.querySelectorAll('[data-n]').forEach(b=>b.addEventListener('click',()=>b.classList.toggle('on')));
   $('shift-save').addEventListener('click',()=>{
     const names=[...box.querySelectorAll('[data-n].on')].map(b=>b.dataset.n);
