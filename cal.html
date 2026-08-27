@@ -48,9 +48,12 @@
 
   /* ===== appbar ===== */
   .appbar{display:flex;align-items:center;gap:10px;padding:18px 18px 12px}
-  .logo{font-weight:800;font-size:14px;border-bottom:2.5px dashed var(--red);padding-bottom:4px;line-height:1.15}
-  .logo small{display:block;font-size:8.5px;letter-spacing:.14em;color:var(--ink2);font-weight:700}
-  .clock{margin-left:auto;font-family:var(--num);font-weight:700;font-size:12px;color:var(--ink2)}
+  .logo{line-height:1.25}
+  .logo .eyebrow{display:block;font-size:10px;letter-spacing:.13em;color:var(--red);font-weight:800;margin-bottom:3px}
+  .logo .h1{font-size:18px;font-weight:800;border-bottom:2.5px dashed var(--red);padding-bottom:3px;display:inline-block}
+  .live{margin-left:auto;font-size:10.5px;font-weight:700;color:var(--ink2);display:flex;align-items:center;gap:5px;flex:none}
+  .live i{width:7px;height:7px;border-radius:50%;background:var(--grn);display:inline-block}
+  .live.off{color:var(--ink3)} .live.off i{background:var(--ink3)}
   .dday{background:var(--red);color:#fff;border-radius:3px;
     padding:2px 8px;font-weight:800;font-size:11px;font-family:var(--num)}
   #sheet-frame{width:100%;height:calc(100vh - 170px);border:1px solid var(--line);border-radius:5px;background:#fff}
@@ -206,8 +209,8 @@
 
 <div class="app" id="app">
   <div class="appbar">
-    <div class="logo">지킴이 캘린더<small>DOING ANTHROPOLOGY · 8.31–9.30</small></div>
-    <span class="clock" id="clock"></span>
+    <div class="logo"><span class="eyebrow">전시장 운영인력 페이지</span><b class="h1">지킴이 캘린더</b></div>
+    <span class="live off" id="live"><i></i><span id="live-t">연결 중…</span></span>
     <span class="dday" id="dday"></span>
     <button class="avatar" id="uav" title="로그아웃"></button>
   </div>
@@ -473,15 +476,12 @@ function enterApp(){
   $('shift-edit').style.display = canManage() ? '':'none';
   startListeners();
   switchView('day'); // 기본 = 오늘 (기간 밖이면 가장 가까운 날로 클램프)
-  tickClock(); setInterval(tickClock, 30000);
-}
-function tickClock(){
-  $('clock').textContent=hhmm();
-  if(keyOf(new Date())!==todayKey) location.reload(); // 자정 넘김 — 오늘 기준 전부 갱신
+  setInterval(function(){ if(keyOf(new Date())!==todayKey) location.reload(); }, 60000); // 자정 넘김 — 오늘 기준 전부 갱신
 }
 
 /* ── 실시간 구독 ── */
 function startListeners(){
+  onValue(ref(db,'.info/connected'),s=>{const on=!!s.val();$('live').classList.toggle('off',!on);$('live-t').textContent=on?'실시간 연결됨':'연결 끊김';});
   onValue(ref(db,'atc/cal/events'),s=>{evCache=s.val()||{};renderAll();});
   onValue(ref(db,'atc/cal/issues'),s=>{isCache=s.val()||{};renderAll();});
   onValue(ref(db,'atc/cal/share'), s=>{shCache=s.val()||{};renderAll();});
