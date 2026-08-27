@@ -263,7 +263,7 @@
     </div>
 
     <div class="sec">
-      <div class="sec-t"><i class="sq ev"></i>주요 일정 <span class="r">관리자</span></div>
+      <div class="sec-t"><i class="sq ev"></i>주요 일정 <span class="r">운영팀</span></div>
       <div id="ev-list"></div>
       <div class="add" id="ev-add" style="display:none">
         <input class="tm-in" id="ev-tm" type="text" placeholder="14:00" inputmode="numeric">
@@ -273,7 +273,7 @@
     </div>
 
     <div class="sec">
-      <div class="sec-t"><i class="sq is"></i>특이사항 · 요청 <span class="r">운영팀장</span></div>
+      <div class="sec-t"><i class="sq is"></i>특이사항 · 요청 <span class="r">운영팀</span></div>
       <div id="is-list"></div>
       <div class="add" id="is-add" style="display:none">
         <div class="seg" id="is-seg"><button data-t="특이" class="on">특이</button><button data-t="요청">요청</button></div>
@@ -346,11 +346,11 @@ const USERS = {
   clara:   {name:'클라라', role:'admin', av:'클', avCls:'av-admin'},
   joara:   {name:'조아라', role:'admin', av:'조', avCls:'av-admin'},
   chaewon: {name:'양채원', role:'admin', av:'양', avCls:'av-admin'},
-  juri:    {name:'조주리', role:'admin', av:'주', avCls:'av-admin'},
-  chaerin: {name:'변채린', role:'admin', av:'변', avCls:'av-admin'},
+  juri:    {name:'조주리', role:'lead',  av:'주', avCls:'av-lead'},
+  chaerin: {name:'변채린', role:'lead',  av:'변', avCls:'av-lead'},
   jinsun:  {name:'박진선', role:'lead',  av:'진', avCls:'av-lead'},
-  haeun:   {name:'박하은', role:'staff', av:'하', avCls:'av-staff'},
-  staff:   {name:'지킴이', role:'staff', av:'지', avCls:'av-staff'}, // 예비 공용(알바 등)
+  haeun:   {name:'박하은', role:'lead',  av:'하', avCls:'av-lead'},
+  staff:   {name:'지킴이', role:'staff', av:'지', avCls:'av-staff'}, // 예비 공용(알바 등) — 공유·체크만
 };
 const NAME_TO_ID = {'클라라':'clara','조아라':'joara','양채원':'chaewon','조주리':'juri','변채린':'chaerin',
   '박진선':'jinsun','진선':'jinsun','박하은':'haeun','하은':'haeun','staff':'staff','지킴이':'staff'};
@@ -425,6 +425,7 @@ let selDay = clampKey(todayKey);
 let curView = 'month';
 let staffSel = localStorage.getItem('atc-cal-staff') || '';
 const myName = ()=> meId==='staff' ? (staffSel||me.name) : me.name; // 공용 계정만 이름 선택
+const canManage = ()=> me.role==='admin'||me.role==='lead'; // 일정·근무·연락처·특이 편집 권한
 
 /* ── 로그인 ── */
 $('login-btn').addEventListener('click', doLogin);
@@ -463,9 +464,9 @@ function enterApp(){
     const n=prompt('본인 이름을 선택하세요: '+STAFF_NAMES.join(' / '), STAFF_NAMES[0]);
     if(n){staffSel=n.trim(); localStorage.setItem('atc-cal-staff',staffSel);}
   }
-  $('ev-add').style.display = me.role==='admin' ? 'flex':'none';
-  $('is-add').style.display = (me.role==='admin'||me.role==='lead') ? 'flex':'none';
-  $('shift-edit').style.display = (me.role==='admin'||me.role==='lead') ? '':'none';
+  $('ev-add').style.display = canManage() ? 'flex':'none';
+  $('is-add').style.display = canManage() ? 'flex':'none';
+  $('shift-edit').style.display = canManage() ? '':'none';
   startListeners();
   switchView('day'); // 기본 = 오늘 (기간 밖이면 가장 가까운 날로 클램프)
   tickClock(); setInterval(tickClock, 30000);
@@ -586,14 +587,14 @@ function renderDay(){
   const evs=Object.entries(evCache[k]||{}).sort((a,b)=>(a[1].tm||'99')<(b[1].tm||'99')?-1:1)
     .map(([id,e])=>'<div class="item"><span class="tm">'+(e.tm?esc(e.tm):'—')+'</span><span class="txt">'+esc(e.text)+'</span>'
       +'<span class="by">'+esc(e.by||'')+'</span>'
-      +(me.role==='admin'?'<button class="del" data-del-ev="'+id+'">✕</button>':'')+'</div>').join('');
+      +(canManage()?'<button class="del" data-del-ev="'+id+'">✕</button>':'')+'</div>').join('');
   $('ev-list').innerHTML=(fixed+evs)||'<div class="empty">등록된 일정 없음</div>';
 
   /* 특이·요청 */
   const iss=Object.entries(isCache[k]||{}).sort((a,b)=>a[1].ts-b[1].ts)
     .map(([id,e])=>'<div class="item"><span class="chip '+(e.type==='요청'?'i2':'i1')+'">'+esc(e.type||'특이')+'</span>'
       +'<span class="txt">'+esc(e.text)+'</span><span class="by">'+esc(e.by||'')+' '+esc(e.at||'')+'</span>'
-      +((me.role==='admin'||me.role==='lead')?'<button class="del" data-del-is="'+id+'">✕</button>':'')+'</div>').join('');
+      +(canManage()?'<button class="del" data-del-is="'+id+'">✕</button>':'')+'</div>').join('');
   $('is-list').innerHTML=iss||'<div class="empty">특이사항 없음</div>';
 
   /* 업무 공유 */
@@ -748,7 +749,7 @@ document.addEventListener('change',e=>{
 $('contacts-btn').addEventListener('click',()=>{
   const dlg=$('contacts-dlg'); const body=$('contacts-body');
   const text=(contactsCache&&contactsCache.text)||DEFAULT_CONTACTS;
-  if(me.role==='admin'){
+  if(canManage()){
     body.innerHTML='<textarea id="ct-ta">'+esc(text)+'</textarea><button class="save" id="ct-save">저장</button>';
     body.querySelector('#ct-save').addEventListener('click',()=>{
       set(ref(db,'atc/cal/contacts'),{text:body.querySelector('#ct-ta').value,by:myName(),ts:Date.now()});
