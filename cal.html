@@ -303,6 +303,7 @@
       <button id="s-prev">‹</button>
       <div class="dt" id="s-title"></div>
       <button id="s-next">›</button>
+      <span class="bdg" id="s-bdg"></span>
       <span class="sp"></span>
       <button class="today-btn" id="s-today">오늘</button>
     </div>
@@ -364,6 +365,7 @@
       <button id="d-prev">‹</button>
       <div class="dt" id="d-title"></div>
       <button id="d-next">›</button>
+      <span class="bdg" id="d-bdg"></span>
       <span class="sp"></span>
       <button class="today-btn" id="d-today">오늘</button>
     </div>
@@ -700,12 +702,12 @@ function dTitle(k,dt){
   const d=parseKey(k);
   return '<b>'+(d.getMonth()+1)+'월 '+d.getDate()+'일</b>'
     +'<i'+(d.getDay()===0?' class="sun"':'')+'>'+DOW[d.getDay()]+'</i>'
-    +'<span class="bdg '+dt.cls+'">'+dt.label+'</span>';
 }
+function setBdg(el,dt){ el.className='bdg '+dt.cls; el.textContent=dt.label; }
 function renderDay(){
   selDay=clampKey(selDay);
   const k=selDay, d=parseKey(k), dt=dayType(k);
-  $('d-title').innerHTML=dTitle(k,dt);
+  $('d-title').innerHTML=dTitle(k,dt); setBdg($('d-bdg'),dt);
   $('d-today').style.display = k===todayKey?'none':'';
   listenEx(k);
 
@@ -815,7 +817,7 @@ function notesOf(k){
 }
 function renderWorklog(){
   selDay=clampKey(selDay);
-  $('s-title').innerHTML=dTitle(selDay,dayType(selDay));
+  $('s-title').innerHTML=dTitle(selDay,dayType(selDay)); setBdg($('s-bdg'),dayType(selDay));
   $('s-today').style.display = selDay===todayKey?'none':'';
   renderRp();
   /* 기간 전체 — 빠진 날 한눈에 */
