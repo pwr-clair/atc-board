@@ -247,7 +247,7 @@
   .ck-body .item{font-size:13px;padding:6px 0}
 
   /* contacts modal */
-  dialog{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:0;max-width:88vw;width:340px}
+  dialog{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:0;max-width:88vw;width:340px;max-height:84vh;overflow:auto}
   dialog::backdrop{background:rgba(20,22,19,.45)}
   .modal-h{display:flex;align-items:center;padding:13px 16px;border-bottom:2px dashed var(--line);font-weight:800;font-size:14px}
   .modal-h button{margin-left:auto;border:0;background:none;font-size:16px;color:var(--ink3)}
@@ -325,6 +325,7 @@
       </div>
       <div class="empty" id="rp-note">근무자·특이사항은 출결과 ‘특이사항·요청’에서 자동으로 채워 전송합니다.</div>
     </div>
+    <div class="sec" id="rp-off" style="display:none"><div class="empty" id="rp-off-t"></div></div>
 
     <div class="sec">
       <div class="sec-t"><i class="sq st"></i>기간 전체 <a class="r" id="sheet-open" target="_blank" rel="noopener" style="text-decoration:none">구글시트 ↗</a></div>
@@ -835,7 +836,10 @@ function renderRp(){
   if(rpDirtyFor && rpDirtyFor!==k) rpDirtyFor=null; // 날짜 이동 시 입력 보호 해제
   $('wl-workers').textContent = workersOf(k).join(', ') || '—';
   $('wl-notes').textContent   = notesOf(k) || '—';
-  $('sec-rp').style.display = (dt.cls==='prep'||dt.cls==='wrap'||CLOSED[k]) ? 'none':'';
+  const off = (dt.cls==='prep'||dt.cls==='wrap'||CLOSED[k]);
+  $('sec-rp').style.display = off?'none':'';
+  $('rp-off').style.display = off?'':'none';
+  if(off) $('rp-off-t').textContent = (CLOSED[k]?'휴관일':dt.label)+' — 근무일지 대상이 아닙니다. 아래 목록에서 날짜를 고르세요.';
   if(rpDirtyFor===k) return;
   const r=rpCache[k]||{};
   $('rp-va').value=r.va||''; $('rp-vr').value=r.vr||''; $('rp-gr').value=r.gr||'';
