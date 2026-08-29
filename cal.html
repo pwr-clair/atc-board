@@ -74,7 +74,6 @@
   .views button{border:1px solid var(--line);background:var(--card);border-radius:999px;
     padding:7px 14px;font-size:13px;font-weight:800;color:var(--ink2)}
   .views button.on{border-color:var(--red);background:var(--red-soft);color:var(--red)}
-  .views .contacts-btn{margin-left:auto;font-size:12px;padding:7px 11px}
 
   .page{display:none;padding:18px 20px 64px}
   .page.on{display:block}
@@ -85,6 +84,15 @@
   .navrow .cur{font-size:15px;font-weight:800}
   .navrow .cur small{font-family:var(--num);font-weight:600;color:var(--ink3);font-size:10.5px;margin-left:6px}
   .navrow .today-btn{width:auto;padding:0 10px;font-size:11px;font-weight:700}
+  /* 날짜 네비 = 제목 겸용 (기존 navrow+dayhead 이중 표기 통합) */
+  .dnav{display:flex;align-items:center;gap:7px;margin:0 0 22px}
+  .dnav button{flex:none;border:1px solid var(--line);background:var(--card);border-radius:4px;
+    width:30px;height:30px;color:var(--ink2);font-size:15px;line-height:1}
+  .dnav .dt{display:flex;align-items:baseline;gap:6px;font-size:18px;font-weight:800;white-space:nowrap}
+  .dnav .dt i{font-style:normal;font-size:12.5px;font-weight:700;color:var(--ink3)}
+  .dnav .dt .sun{color:var(--red)}
+  .dnav .sp{flex:1}
+  .dnav .today-btn{width:auto;padding:0 11px;height:30px;font-size:11px;font-weight:800}
 
   /* ===== month grid ===== */
   .dow{display:grid;grid-template-columns:repeat(7,1fr);font-size:9.5px;font-weight:800;color:var(--ink3);
@@ -124,19 +132,15 @@
   .wday .ln .t{font-family:var(--num);font-size:10px;color:var(--pur);font-weight:700;margin-right:4px}
 
   /* ===== day view ===== */
-  .dayhead{margin:4px 2px 18px}
-  .dayhead .big{font-size:19px;font-weight:800}
-  .dayhead .big small{font-size:12px;color:var(--ink3);font-weight:700;margin-left:6px}
-  .bdg{display:inline-block;font-size:10px;font-weight:800;border-radius:3px;padding:2px 7px;vertical-align:2px;margin-left:8px}
+  .bdg{display:inline-block;font-size:10px;font-weight:800;border-radius:3px;padding:2px 7px;vertical-align:2px;margin-left:2px}
   .bdg.open{background:var(--grn-soft);color:var(--grn-ink)}
   .bdg.closed{background:var(--well);color:var(--ink2)}
   .bdg.prep{background:var(--blu-soft);color:var(--blu)}
   .bdg.wrap{background:var(--pur-soft);color:var(--pur)}
 
-  .sec{background:var(--card);border:1px solid var(--line);border-radius:14px;
-    padding:16px 15px 15px;margin-bottom:16px}
-  .sec-t{font-size:11px;font-weight:800;letter-spacing:.1em;color:var(--ink2);
-    border-bottom:2px dashed var(--line);padding-bottom:7px;margin:0 0 12px;display:flex;align-items:center}
+  .sec{margin-bottom:28px}
+  .sec-t{font-size:10.5px;font-weight:800;letter-spacing:.12em;color:var(--ink3);
+    border-bottom:1px solid var(--line);padding-bottom:8px;margin:0 0 4px;display:flex;align-items:center}
   .sec-t .sq{width:8px;height:8px;margin-right:7px;flex:none}
   .sq.ev{background:var(--pur)} .sq.is{background:var(--red)} .sq.sh{background:var(--blu)} .sq.ck{background:var(--grn)} .sq.st{background:var(--ink2)} .sq.rp{background:var(--grn-ink)}
   .rp-grid{display:grid;grid-template-columns:76px 1fr;gap:7px 9px;align-items:center}
@@ -170,15 +174,8 @@
   .seg button{border:0;background:var(--card);padding:0 10px;font-size:11.5px;font-weight:700;color:var(--ink3)}
   .seg button.on{background:var(--red);color:#fff}
 
-  /* shift chips */
-  .chips{display:flex;flex-wrap:wrap;gap:6px}
-  .pchip{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:4px 12px;font-size:12.5px;font-weight:700;color:var(--ink2)}
-  .pchip.on{background:var(--red-soft);border-color:var(--red);color:var(--red)}
-  .pchip.view{background:var(--well);border-color:transparent;color:var(--ink)}
-
   /* 접히는 섹션 (출결) */
-  .sec.fold .sec-t{cursor:pointer;border-bottom:0;padding-bottom:0;margin-bottom:0}
-  .sec.fold.open .sec-t{border-bottom:2px dashed var(--line);padding-bottom:7px;margin-bottom:12px}
+  .sec.fold .sec-t{cursor:pointer}
   .sec.fold .fold-b{display:none}
   .sec.fold.open .fold-b{display:block}
   .sec-t .tri{flex:none;margin-right:7px;color:var(--grn-ink);font-size:9px;display:inline-block;transition:transform .15s}
@@ -232,16 +229,21 @@
     border-radius:14px;padding:6px 13px;font-size:12px;font-weight:800;text-decoration:none}
   .tm-row a.call.off{border-color:var(--line);background:var(--well);color:var(--ink3);pointer-events:none}
   .tm-row button.ed{flex:none;border:0;background:none;color:var(--ink3);font-size:12px;padding:0 2px}
-  .tm-foot{display:flex;gap:8px;margin-top:14px}
-  .tm-foot button{flex:1;border:1px solid var(--line);background:var(--well);color:var(--ink2);
-    border-radius:5px;padding:11px;font-size:12.5px;font-weight:800}
-  .tm-foot button.lo{border-color:var(--red);color:var(--red);background:var(--red-soft)}
+  .tm-add,.tm-lo{width:100%;border:1px solid var(--line);background:var(--well);color:var(--ink2);
+    border-radius:5px;padding:11px;font-size:12.5px;font-weight:800;margin-top:12px}
+  .tm-lo{border-color:var(--red);color:var(--red);background:var(--red-soft)}
+  .tm-sec{font-size:10px;font-weight:800;letter-spacing:.12em;color:var(--ink3);
+    border-bottom:1px solid var(--line);padding-bottom:7px;margin:22px 0 10px}
+  #contacts-body{font-size:13px;line-height:1.9;white-space:pre-wrap;color:var(--ink2)}
 
   /* checklist */
-  .ck-wrap{border:1px solid var(--hair);border-radius:5px;overflow:hidden}
-  .ck-h{display:flex;align-items:center;padding:9px 12px;background:var(--well);font-size:12px;font-weight:800;cursor:pointer}
-  .ck-h .pr{margin-left:auto;font-family:var(--num);font-size:10.5px;font-weight:600;color:var(--ink2)}
-  .ck-body{display:none;padding:2px 12px 8px}
+  .ck-wrap{border-bottom:1px solid var(--hair)}
+  .ck-wrap:last-child{border-bottom:0}
+  .ck-h{display:flex;align-items:center;gap:7px;padding:12px 2px;font-size:13px;font-weight:800;cursor:pointer}
+  .ck-h .tri{flex:none;color:var(--grn-ink);font-size:9px;display:inline-block;transition:transform .15s}
+  .ck-wrap.open .ck-h .tri{transform:rotate(90deg)}
+  .ck-h .pr{margin-left:auto;font-family:var(--num);font-size:10.5px;font-weight:600;color:var(--ink3)}
+  .ck-body{display:none;padding:0 2px 10px 16px}
   .ck-wrap.open .ck-body{display:block}
   .ck-g{font-size:10px;font-weight:800;letter-spacing:.08em;color:var(--ink3);margin:9px 0 2px}
   .ck-body .item{font-size:13px;padding:6px 0}
@@ -293,15 +295,15 @@
     <button data-v="week">주</button>
     <button data-v="month">월</button>
     <button data-v="sheet">근무일지</button>
-    <button class="contacts-btn" id="contacts-btn">연락처 ☎</button>
   </div>
 
   <!-- 근무일지 (앱 내 입력 → 구글시트 전송) -->
   <div class="page" data-page="sheet">
-    <div class="navrow">
+    <div class="dnav">
       <button id="s-prev">‹</button>
-      <div class="cur" id="s-title"></div>
+      <div class="dt" id="s-title"></div>
       <button id="s-next">›</button>
+      <span class="sp"></span>
       <button class="today-btn" id="s-today">오늘</button>
     </div>
 
@@ -358,13 +360,13 @@
 
   <!-- 일 -->
   <div class="page" data-page="day">
-    <div class="navrow">
+    <div class="dnav">
       <button id="d-prev">‹</button>
-      <div class="cur" id="d-title"></div>
+      <div class="dt" id="d-title"></div>
       <button id="d-next">›</button>
+      <span class="sp"></span>
       <button class="today-btn" id="d-today">오늘</button>
     </div>
-    <div class="dayhead" id="d-head"></div>
 
     <div class="sec fold open" id="sec-att">
       <div class="sec-t" id="att-h"><i class="tri">▶</i>출결 확인 <span class="r" id="att-sum"></span></div>
@@ -409,19 +411,14 @@
   </div>
 </div>
 
-<dialog id="contacts-dlg">
-  <div class="modal-h">비상연락망 · 주요 연락처 <button id="contacts-x">✕</button></div>
-  <div class="modal-b" id="contacts-body"></div>
-</dialog>
-
 <dialog id="team-dlg">
   <div class="modal-h">팀원 연락처 <button id="team-x">✕</button></div>
   <div class="modal-b" style="white-space:normal">
     <div id="team-list"></div>
-    <div class="tm-foot">
-      <button id="team-add" style="display:none">+ 팀원 추가</button>
-      <button class="lo" id="team-logout">로그아웃</button>
-    </div>
+    <button class="tm-add" id="team-add" style="display:none">+ 팀원 추가</button>
+    <div class="tm-sec">비상연락망</div>
+    <div id="contacts-body"></div>
+    <button class="tm-lo" id="team-logout">로그아웃</button>
   </div>
 </dialog>
 
@@ -524,9 +521,9 @@ const hhmm=()=>{const d=new Date();return pad(d.getHours())+':'+pad(d.getMinutes
 function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1600);}
 function dayType(k){
   if(k<EX_START) return {cls:'prep',label:'개막 준비'};
-  if(k>EX_END)   return {cls:'wrap',label:'철거·정리 기간'};
-  if(CLOSED[k])  return {cls:'closed',label:'휴관 (월요일)'};
-  return {cls:'open',label:'운영 12:00–20:00'};
+  if(k>EX_END)   return {cls:'wrap',label:'철거·정리'};
+  if(CLOSED[k])  return {cls:'closed',label:'휴관'};
+  return {cls:'open',label:'운영일'};
 }
 const todayKey = keyOf(new Date());
 
@@ -581,7 +578,7 @@ $('uav').addEventListener('click',()=>{
     set(ref(db,'atc/cal/team'),seed);
   }
   $('team-add').style.display = isAdmin() ? '':'none';
-  renderTeam();
+  renderTeam(); renderContacts();
   $('team-dlg').showModal();
 });
 
@@ -611,7 +608,7 @@ function startListeners(){
   onValue(ref(db,'atc/cal/att'),   s=>{attCache=s.val()||{};renderAtt();renderRp();});
   onValue(ref(db,'atc/cal/venue'), s=>{venueCache=s.val();renderAtt();});
   onValue(ref(db,'atc/cal/team'),  s=>{teamCache=s.val();renderTeam();});
-  onValue(ref(db,'atc/cal/contacts'),s=>{contactsCache=s.val();});
+  onValue(ref(db,'atc/cal/contacts'),s=>{contactsCache=s.val();if($('team-dlg').open)renderContacts();});
   onValue(ref(db,'atc/cal/report'),s=>{rpCache=s.val()||{};renderRp();if(curView==='month')renderMonth();});
 }
 function listenEx(dateKey){
@@ -698,12 +695,18 @@ $('w-next').addEventListener('click',()=>{weekMon=addDays(weekMon,7);renderWeek(
 $('w-today').addEventListener('click',()=>{weekMon=mondayKey(clampKey(todayKey));renderWeek();});
 
 /* ── 일 뷰 ── */
+/* 날짜 제목 — 8월 31일 · 월 · [상태] 한 줄 */
+function dTitle(k,dt){
+  const d=parseKey(k);
+  return '<b>'+(d.getMonth()+1)+'월 '+d.getDate()+'일</b>'
+    +'<i'+(d.getDay()===0?' class="sun"':'')+'>'+DOW[d.getDay()]+'</i>'
+    +'<span class="bdg '+dt.cls+'">'+dt.label+'</span>';
+}
 function renderDay(){
   selDay=clampKey(selDay);
   const k=selDay, d=parseKey(k), dt=dayType(k);
-  $('d-title').innerHTML=(d.getMonth()+1)+'.'+d.getDate()+' <small>'+DOW[d.getDay()]+'</small>';
-  $('d-head').innerHTML='<span class="big">'+(d.getMonth()+1)+'월 '+d.getDate()+'일 '+DOW[d.getDay()]+'요일'
-    +(k===todayKey?'<small>오늘</small>':'')+'</span><span class="bdg '+dt.cls+'">'+dt.label+'</span>';
+  $('d-title').innerHTML=dTitle(k,dt);
+  $('d-today').style.display = k===todayKey?'none':'';
   listenEx(k);
 
   renderAtt();
@@ -812,8 +815,8 @@ function notesOf(k){
 }
 function renderWorklog(){
   selDay=clampKey(selDay);
-  const d=parseKey(selDay);
-  $('s-title').innerHTML=(d.getMonth()+1)+'.'+d.getDate()+' <small>'+DOW[d.getDay()]+'</small>';
+  $('s-title').innerHTML=dTitle(selDay,dayType(selDay));
+  $('s-today').style.display = selDay===todayKey?'none':'';
   renderRp();
   /* 기간 전체 — 빠진 날 한눈에 */
   let rows='';
@@ -902,7 +905,7 @@ function renderCk(){
     }).join('');
     const box=document.createElement('div');
     box.className='ck-wrap'+(k===todayKey?' open':'');
-    box.innerHTML='<div class="ck-h">'+EX_SEC_NAMES[sec]+'<span class="pr">'+done+'/'+total+'</span></div><div class="ck-body">'+rows+'</div>';
+    box.innerHTML='<div class="ck-h"><i class="tri">▶</i>'+EX_SEC_NAMES[sec]+'<span class="pr">'+done+'/'+total+'</span></div><div class="ck-body">'+rows+'</div>';
     box.querySelector('.ck-h').addEventListener('click',()=>box.classList.toggle('open'));
     wrap.appendChild(box);
   });
@@ -990,20 +993,18 @@ $('team-add').addEventListener('click',()=>{
 $('team-x').addEventListener('click',()=>$('team-dlg').close());
 $('team-logout').addEventListener('click',()=>{ if(confirm('로그아웃할까요?')){$('team-dlg').close();signOut(auth);} });
 
-/* ── 비상연락망 ── */
-$('contacts-btn').addEventListener('click',()=>{
-  const dlg=$('contacts-dlg'); const body=$('contacts-body');
+/* ── 비상연락망 (팀원 다이얼로그 하단) ── */
+function renderContacts(){
+  const body=$('contacts-body');
   const text=(contactsCache&&contactsCache.text)||DEFAULT_CONTACTS;
-  if(canManage()){
+  if(isAdmin()){
     body.innerHTML='<textarea id="ct-ta">'+esc(text)+'</textarea><button class="save" id="ct-save">저장</button>';
-    body.querySelector('#ct-save').addEventListener('click',()=>{
-      set(ref(db,'atc/cal/contacts'),{text:body.querySelector('#ct-ta').value,by:myName(),ts:Date.now()});
-      toast('연락처 저장'); dlg.close();
+    $('ct-save').addEventListener('click',()=>{
+      set(ref(db,'atc/cal/contacts'),{text:$('ct-ta').value,by:myName(),ts:Date.now()});
+      toast('비상연락망 저장');
     });
   } else body.textContent=text;
-  dlg.showModal();
-});
-$('contacts-x').addEventListener('click',()=>$('contacts-dlg').close());
+}
 
 /* 데모 진입 (스크립트 전부 초기화된 뒤) */
 if(demo){
