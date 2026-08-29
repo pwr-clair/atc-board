@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23F0604A'/%3E%3C/svg%3E">
 <title>예술기술도시 지킴이 캘린더</title>
 <style>
   :root{
@@ -23,8 +24,8 @@
   input,textarea{background:#0e1220;color:var(--ink)}
   input::placeholder{color:var(--ink3)}
   html,body{margin:0;background:var(--paper);color:var(--ink);
-    font-family:"Pretendard Variable",Pretendard,"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;
-    line-height:1.5;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+    font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR",sans-serif;
+    line-height:1.6;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
   button{font-family:inherit;cursor:pointer}
   button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--red);outline-offset:2px}
   .app{max-width:520px;margin:0 auto;min-height:100vh;background:var(--paper);display:none}
@@ -47,16 +48,16 @@
   #login .hint{font-size:11.5px;color:rgba(255,255,255,.45);margin-top:18px;line-height:1.7}
 
   /* ===== 헤더 — anthroydp.site 헤더 동일 구조, 빨강톤 ===== */
-  .hero{padding:34px 18px 22px;border-bottom:1px solid var(--line);position:relative}
+  .hero{padding:34px 20px 28px;border-bottom:1px solid var(--line);position:relative}
   .hero .eyebrow{font-size:13px;letter-spacing:.12em;color:var(--red);font-weight:700;margin-bottom:10px;
     display:flex;align-items:center;gap:10px}
   .hero h1{margin:0;font-size:25px;line-height:1.5;font-weight:800;word-break:keep-all;
     text-decoration:underline dashed var(--red) 3px;text-underline-offset:9px}
-  .hero h1 .en{display:block;font-size:14px;font-weight:500;color:var(--ink2);margin-top:9px;letter-spacing:.02em;
+  .hero h1 .en{display:block;font-size:15px;font-weight:500;color:var(--ink2);margin-top:9px;letter-spacing:.02em;
     text-decoration:underline dashed var(--red) 3px;text-underline-offset:9px}
-  .hero .keyinfo{margin:16px 0 0;font-size:14px;color:var(--ink2)}
+  .hero .keyinfo{margin:18px 0 0;font-size:15px;color:var(--ink2)}
   .hero .keyinfo strong{color:var(--ink)}
-  .hero .avatar{position:absolute;top:30px;right:18px}
+  .hero .avatar{position:absolute;top:30px;right:20px}
   .live{margin-left:auto;font-size:10.5px;font-weight:700;color:var(--ink2);display:flex;align-items:center;gap:5px;flex:none;
     letter-spacing:0;padding-right:38px}
   .live i{width:7px;height:7px;border-radius:50%;background:var(--grn);display:inline-block}
@@ -70,14 +71,14 @@
   .av-admin,.av-lead,.av-staff{background:#2b3247}
 
   /* ===== view switcher ===== */
-  .views{display:flex;align-items:center;padding:6px 18px 14px;gap:7px;
+  .views{display:flex;align-items:center;padding:6px 20px 14px;gap:7px;
     position:sticky;top:0;background:var(--paper);z-index:10;border-bottom:1px solid var(--hair)}
   .views button{border:1px solid var(--line);background:var(--card);border-radius:999px;
     padding:7px 14px;font-size:13px;font-weight:800;color:var(--ink2)}
   .views button.on{border-color:var(--red);background:var(--red-soft);color:var(--red)}
   .views .contacts-btn{margin-left:auto;font-size:12px;padding:7px 11px}
 
-  .page{display:none;padding:18px 16px 64px}
+  .page{display:none;padding:18px 20px 64px}
   .page.on{display:block}
 
   /* ===== nav row ===== */
