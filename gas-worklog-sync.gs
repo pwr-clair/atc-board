@@ -50,6 +50,7 @@ function doPost(e) {
     if (d.participants) setCell('참가자수', '사전신청: ' + (d.participants.pre || '') + '\n현장참여: ' + (d.participants.onsite || ''));
     if (d.workers != null) setCell('근무자', d.workers);
     if (d.group != null)   setCell('단체관람예약', d.group);
+    if (d.event != null)   setCell('연계행사', d.event);
     if (d.notes != null)   setCell('특이사항', d.notes);
 
     return out_({ok:true});

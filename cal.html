@@ -65,9 +65,6 @@
   .ddaywrap{display:inline-block;padding-left:9px;position:relative;top:-1px}
   .dday{display:inline-block;background:var(--red);color:#fff;border-radius:999px;
     padding:2px 9px;font-weight:800;font-size:11px;font-family:var(--num);line-height:1.45;white-space:nowrap}
-  #sheet-frame{width:100%;height:calc(100vh - 170px);border:1px solid var(--line);border-radius:5px;background:#fff}
-  .sheet-open{display:inline-block;margin-bottom:9px;border:1px solid var(--line);border-radius:4px;
-    padding:7px 13px;font-size:12.5px;font-weight:700;color:var(--ink);text-decoration:none;background:var(--card)}
   .avatar{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:800;color:#fff;border:0}
   .av-admin,.av-lead,.av-staff{background:#2b3247}
 
@@ -179,6 +176,67 @@
   .pchip.on{background:var(--red-soft);border-color:var(--red);color:var(--red)}
   .pchip.view{background:var(--well);border-color:transparent;color:var(--ink)}
 
+  /* 접히는 섹션 (출결) */
+  .sec.fold .sec-t{cursor:pointer;border-bottom:0;padding-bottom:0;margin-bottom:0}
+  .sec.fold.open .sec-t{border-bottom:2px dashed var(--line);padding-bottom:7px;margin-bottom:12px}
+  .sec.fold .fold-b{display:none}
+  .sec.fold.open .fold-b{display:block}
+  .sec-t .tri{flex:none;margin-right:7px;color:var(--grn-ink);font-size:9px;display:inline-block;transition:transform .15s}
+  .sec.fold.open .sec-t .tri{transform:rotate(90deg)}
+
+  /* 출결 */
+  .att{display:flex;align-items:center;gap:8px;padding:9px 2px;border-bottom:1px solid var(--hair)}
+  .att:last-of-type{border-bottom:0}
+  .att .nm{font-size:13.5px;font-weight:700;flex:none;min-width:56px}
+  .att .tms{flex:1;min-width:0;font-family:var(--num);font-size:11px;color:var(--ink3);line-height:1.5}
+  .att .tms b{color:var(--grn-ink);font-weight:700} .att .tms u{color:var(--red);text-decoration:none;font-weight:700}
+  .att .tms .warn{color:var(--red)}
+  .att .btn{flex:none;border:1px solid var(--grn-ink);border-radius:14px;padding:5px 11px;font-size:11.5px;
+    font-weight:800;background:var(--grn-soft);color:var(--grn-ink)}
+  .att .btn.out{border-color:var(--red);background:var(--red-soft);color:var(--red)}
+  .att .btn:disabled{border-color:var(--line);background:var(--well);color:var(--ink3)}
+  .att .btn.fix{border-color:var(--line);background:var(--well);color:var(--ink2);font-weight:700}
+  .att-note{font-size:10.5px;color:var(--ink3);margin-top:10px;line-height:1.7}
+  .att-note b{color:var(--grn-ink)} .att-note s{color:var(--red);text-decoration:none}
+  .att-note button{border:1px solid var(--line);background:var(--well);color:var(--ink2);border-radius:4px;
+    padding:5px 10px;font-size:10.5px;font-weight:700;margin-top:7px}
+
+  /* 근무일지 */
+  .gowl{width:100%;border:1px dashed var(--grn-ink);background:var(--grn-soft);color:var(--grn-ink);
+    border-radius:10px;padding:13px;font-size:13px;font-weight:800;margin-bottom:16px}
+  .wl-grid{display:grid;grid-template-columns:92px 1fr;gap:8px 9px;align-items:start}
+  .wl-grid label{font-size:11.5px;font-weight:800;color:var(--ink2);padding-top:9px}
+  .wl-grid label small{display:block;font-size:10px;font-weight:700;color:var(--ink3)}
+  .wl-grid input,.wl-grid textarea{border:1px solid var(--line);border-radius:4px;padding:8px 10px;
+    font-size:14px;min-width:0;width:100%;font-family:inherit}
+  .wl-grid textarea{min-height:52px;resize:vertical;line-height:1.5}
+  .wl-auto{margin-top:12px;border-top:1px dashed var(--line);padding-top:11px;font-size:12px;color:var(--ink2);line-height:1.7}
+  .wl-auto b{font-size:10px;font-weight:800;letter-spacing:.08em;color:var(--ink3);margin-right:7px}
+  .wl-row{display:flex;align-items:center;gap:8px;padding:8px 2px;border-bottom:1px solid var(--hair);
+    font-size:12.5px;cursor:pointer}
+  .wl-row:last-child{border-bottom:0}
+  .wl-row.on{background:var(--well)}
+  .wl-row .dt{flex:none;min-width:44px;font-family:var(--num);font-weight:700}
+  .wl-row .vs{flex:1;font-family:var(--num);font-size:11px;color:var(--ink2)}
+  .wl-row .stt{flex:none;font-size:9.5px;font-weight:800;border-radius:2px;padding:1px 6px}
+  .stt.sent{background:var(--grn-soft);color:var(--grn-ink)}
+  .stt.saved{background:var(--blu-soft);color:var(--blu)}
+  .stt.none{background:var(--well);color:var(--ink3)}
+
+  /* 팀원 연락처 다이얼로그 */
+  .tm-row{display:flex;align-items:center;gap:9px;padding:11px 0;border-bottom:1px solid var(--hair)}
+  .tm-row .i{flex:1;min-width:0}
+  .tm-row .i b{display:block;font-size:14px;font-weight:800}
+  .tm-row .i span{font-size:11px;color:var(--ink3)}
+  .tm-row a.call{flex:none;border:1px solid var(--grn-ink);background:var(--grn-soft);color:var(--grn-ink);
+    border-radius:14px;padding:6px 13px;font-size:12px;font-weight:800;text-decoration:none}
+  .tm-row a.call.off{border-color:var(--line);background:var(--well);color:var(--ink3);pointer-events:none}
+  .tm-row button.ed{flex:none;border:0;background:none;color:var(--ink3);font-size:12px;padding:0 2px}
+  .tm-foot{display:flex;gap:8px;margin-top:14px}
+  .tm-foot button{flex:1;border:1px solid var(--line);background:var(--well);color:var(--ink2);
+    border-radius:5px;padding:11px;font-size:12.5px;font-weight:800}
+  .tm-foot button.lo{border-color:var(--red);color:var(--red);background:var(--red-soft)}
+
   /* checklist */
   .ck-wrap{border:1px solid var(--hair);border-radius:5px;overflow:hidden}
   .ck-h{display:flex;align-items:center;padding:9px 12px;background:var(--well);font-size:12px;font-weight:800;cursor:pointer}
@@ -238,10 +296,40 @@
     <button class="contacts-btn" id="contacts-btn">연락처 ☎</button>
   </div>
 
-  <!-- 근무일지 시트 -->
+  <!-- 근무일지 (앱 내 입력 → 구글시트 전송) -->
   <div class="page" data-page="sheet">
-    <a class="sheet-open" id="sheet-open" target="_blank" rel="noopener">↗ 구글시트 앱/새 탭에서 열기</a>
-    <iframe id="sheet-frame" title="근무일지"></iframe>
+    <div class="navrow">
+      <button id="s-prev">‹</button>
+      <div class="cur" id="s-title"></div>
+      <button id="s-next">›</button>
+      <button class="today-btn" id="s-today">오늘</button>
+    </div>
+
+    <div class="sec" id="sec-rp">
+      <div class="sec-t"><i class="sq rp"></i>근무일지 <span class="r" id="rp-sync-st">시트 미전송</span></div>
+      <div class="wl-grid">
+        <label>일 방문자수<small>실제</small></label><input type="text" inputmode="numeric" id="rp-va" placeholder="명">
+        <label>일 방문자수<small>보고용</small></label><input type="text" inputmode="numeric" id="rp-vr" placeholder="명">
+        <label>단체관람 예약</label><textarea id="rp-gr" placeholder="예: 14시 꿈의 스튜디오 도슨트"></textarea>
+        <label>연계행사</label><textarea id="rp-ev" placeholder="예: 16시 크로스토크"></textarea>
+        <label>참가자수<small>사전신청</small></label><input type="text" inputmode="numeric" id="rp-pp" placeholder="연계행사 있을 때">
+        <label>참가자수<small>현장참여</small></label><input type="text" inputmode="numeric" id="rp-po" placeholder="연계행사 있을 때">
+      </div>
+      <div class="wl-auto">
+        <div><b>근무자</b><span id="wl-workers"></span></div>
+        <div><b>특이사항</b><span id="wl-notes"></span></div>
+      </div>
+      <div class="add" style="margin-top:12px">
+        <button id="rp-save" style="flex:1;background:var(--card);color:var(--ink);border:1px solid var(--line)">앱에 저장</button>
+        <button id="rp-send" style="flex:1">저장 + 시트 전송</button>
+      </div>
+      <div class="empty" id="rp-note">근무자·특이사항은 출결과 ‘특이사항·요청’에서 자동으로 채워 전송합니다.</div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-t"><i class="sq st"></i>기간 전체 <a class="r" id="sheet-open" target="_blank" rel="noopener" style="text-decoration:none">구글시트 ↗</a></div>
+      <div id="wl-table"></div>
+    </div>
   </div>
 
   <!-- 월 -->
@@ -277,9 +365,9 @@
     </div>
     <div class="dayhead" id="d-head"></div>
 
-    <div class="sec" id="sec-shift">
-      <div class="sec-t"><i class="sq st"></i>근무 인원 <button class="r" id="shift-edit" style="display:none">편집</button></div>
-      <div class="chips" id="shift-chips"></div>
+    <div class="sec fold open" id="sec-att">
+      <div class="sec-t" id="att-h"><i class="tri">▶</i>출결 확인 <span class="r" id="att-sum"></span></div>
+      <div class="fold-b"><div id="att-list"></div><div class="att-note" id="att-note"></div></div>
     </div>
 
     <div class="sec">
@@ -311,21 +399,7 @@
       </div>
     </div>
 
-    <div class="sec" id="sec-rp">
-      <div class="sec-t"><i class="sq rp"></i>일일 보고 <span class="r" id="rp-sync-st">근무일지 시트 연동</span></div>
-      <div class="rp-grid">
-        <label>방문자 실제</label><input type="text" inputmode="numeric" id="rp-va" placeholder="명">
-        <label>방문자 보고용</label><input type="text" inputmode="numeric" id="rp-vr" placeholder="명">
-        <label>사전신청</label><input type="text" inputmode="numeric" id="rp-pp" placeholder="연계행사 있을 때">
-        <label>현장참여</label><input type="text" inputmode="numeric" id="rp-po" placeholder="연계행사 있을 때">
-        <label>단체관람</label><input type="text" id="rp-gr" placeholder="예: 14시 꿈의 스튜디오 도슨트">
-      </div>
-      <div class="add" style="margin-top:10px">
-        <button id="rp-save" style="flex:1;background:var(--card);color:var(--ink);border:1px solid var(--line)">앱에 저장</button>
-        <button id="rp-send" style="flex:1">저장 + 시트 전송</button>
-      </div>
-      <div class="empty" id="rp-note">‘시트 전송’은 근무자·특이사항까지 근무일지 시트의 해당 날짜 칸에 채웁니다.</div>
-    </div>
+    <button class="gowl" id="go-wl">근무일지 작성 →</button>
 
     <div class="sec" id="sec-ck">
       <div class="sec-t"><i class="sq ck"></i>운영 체크리스트</div>
@@ -337,6 +411,17 @@
 <dialog id="contacts-dlg">
   <div class="modal-h">비상연락망 · 주요 연락처 <button id="contacts-x">✕</button></div>
   <div class="modal-b" id="contacts-body"></div>
+</dialog>
+
+<dialog id="team-dlg">
+  <div class="modal-h">팀원 연락처 <button id="team-x">✕</button></div>
+  <div class="modal-b" style="white-space:normal">
+    <div id="team-list"></div>
+    <div class="tm-foot">
+      <button id="team-add" style="display:none">+ 팀원 추가</button>
+      <button class="lo" id="team-logout">로그아웃</button>
+    </div>
+  </div>
 </dialog>
 
 <div class="toast" id="toast"></div>
@@ -375,9 +460,17 @@ const USERS = {
 const NAME_TO_ID = {'클라라':'clara','조아라':'joara','양채원':'chaewon','조주리':'juri','변채린':'chaerin',
   '박진선':'jinsun','진선':'jinsun','박하은':'haeun','하은':'haeun','staff':'staff','지킴이':'staff'};
 const SUFFIX = '@atc.local';
-/* 근무 로스터 (근무 인원 편집 후보) */
-const ROSTER = ['박진선','박하은','조아라','양채원'];
+/* 출결 대상 3인 — 인력 확정되면 tbd 줄의 {id,name}만 교체 */
+const ATT_ROSTER = [{id:'jinsun',name:'박진선'},{id:'haeun',name:'박하은'},{id:'tbd',name:'추가 예정'}];
 const STAFF_NAMES = ['박하은'];
+/* 팀원 연락처 기본값 — 관리자가 처음 열 때 DB(atc/cal/team)에 1회 시딩되고, 그 뒤로는 DB가 정본 */
+const DEFAULT_TEAM = [
+  {name:'조아라', role:'전시운영 매니저', phone:'010-7226-1725'},
+  {name:'변채린', role:'영등포문화재단',   phone:'010-2172-5352'},
+  {name:'박진선', role:'운영팀장',        phone:''},
+  {name:'박하은', role:'운영인력',        phone:''},
+  {name:'클라라', role:'관리자',          phone:''},
+];
 
 /* ── 기간·고정 일정 (정본 = anthroydp.site 2026-08-27 실측) ── */
 const MIN='2026-08-31', MAX='2026-09-30';
@@ -394,12 +487,12 @@ const FIXED = {
 };
 /* 개장·폐장 체크리스트 — 운영보드(index.html)와 동일 항목·동일 DB 경로(atc/ex*, 상호 동기화) */
 const EX_FIXED = {
-  open:['출입문 잠금 해제 · 전기·조명 점등','냉난방 상태 확인','미디어 기기(작품) ON · 작동 확인',
-        '전시 작품 상태 점검','온습도·조도 확인 (20–24℃/50–60%)','시설물 이상 유무 확인',
-        '당일 일정 확인 (단체·연계·이벤트)','운영인력 출근 확인'],
-  run: ['관람객 계수 기록 (2시간 단위)','미디어 작품 정상 작동 순회 점검','민원·특이사항 기록'],
-  close:['관람객 완전 퇴장 확인','미디어 기기 OFF','전시 작품 상태 점검','시설 이상 여부 확인',
-         '일일 운영 일지 기록','냉난방 종료 · 조명·전기 차단','출입문 잠금 확인'],
+  open:['운영인력 출근 확인','출입문 잠금 해제 · 전기·조명 점등','냉난방 상태 확인',
+        '미디어 기기(작품) ON · 작동 확인','전시 작품 상태 점검','당일 일정 확인 (단체·연계·이벤트)'],
+  run: ['관람객 계수 기록','미디어 작품 정상 작동 수시 점검','민원·특이사항 기록',
+        '사람 많을 때 · 도슨트 · 연계 프로그램 사진 촬영','작품 눈으로 감상 안내'],
+  close:['미디어 기기 OFF','전시 작품 상태 점검','일일 운영 일지 기록',
+         '냉난방 종료 · 조명·전기 차단','출입문 잠금 확인','운영인력 퇴근 확인'],
 };
 const EX_SEC_NAMES = {open:'개장 전',run:'운영 중',close:'폐장 후'};
 const DEFAULT_CONTACTS =
@@ -415,7 +508,6 @@ const DEFAULT_CONTACTS =
 const GAS_URL = '';
 const SHEET_ID = '1yibvg-5oXCw4TN2X9AKzvbkpyKr3inUL_OKW9L-jvXU';
 const SHEET_URL = 'https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/edit?gid=706044258';           // 편집(새 탭)
-const SHEET_VIEW = 'https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/htmlview?gid=706044258&widget=true&headers=false'; // 임베드(edit는 프레임 차단)
 
 /* ── 유틸 ── */
 const pad = n => String(n).padStart(2,'0');
@@ -439,13 +531,20 @@ const todayKey = keyOf(new Date());
 
 /* ── 상태 ── */
 let me=null, meId=null;
-let evCache={}, isCache={}, shCache={}, shiftCache={}, contactsCache=null, rpCache={};
+let evCache={}, isCache={}, shCache={}, contactsCache=null, rpCache={};
+let attCache={}, venueCache=null, teamCache=null, myIp=null;
 let exCache={}, exDoneCache={}, exDate=null, exUnsub=[];
 let selDay = clampKey(todayKey);
 let curView = 'month';
 let staffSel = localStorage.getItem('atc-cal-staff') || '';
 const myName = ()=> meId==='staff' ? (staffSel||me.name) : me.name; // 공용 계정만 이름 선택
 const canManage = ()=> true; // 2026-08-28 클라라 결정: 모든 접근자 모든 권한
+const isAdmin = ()=> !!(me && me.role==='admin'); // 출결 전체 열람·팀원 편집 (조아라·클라라·양채원)
+/* 공인 IP — 브라우저는 SSID를 못 읽으므로 전시장 와이파이 판정은 공인 IP 대조로 대신한다 */
+fetch('https://api.ipify.org?format=json').then(r=>r.json()).then(j=>{myIp=j.ip;renderAtt();}).catch(()=>{});
+const venueIp = ()=> venueCache && venueCache.ip;
+/* ponytail: IP 조회가 실패하면(myIp=null) 잠그지 않고 통과시킨 뒤 기록에 ⚠만 남긴다 — 외부 서비스 장애로 출퇴근이 막히는 편이 더 나쁘다 */
+const atVenue = ()=> !venueIp() || !myIp || myIp===venueIp();
 /* 작성자별 글색 — 조아라·클라라 빨강 / 조주리 파랑 / 변채린 보라 / 양채원 초록 / 나머지 블랙 */
 const inkOf = n => ({'조아라':'var(--red)','클라라':'var(--red)','조주리':'var(--blu)','변채린':'var(--pur)','양채원':'var(--grn-ink)'}[n]||'inherit');
 
@@ -474,11 +573,20 @@ onAuthStateChanged(auth,user=>{
   if(user){ meId=user.email.split('@')[0]; me=USERS[meId]||USERS.staff; enterApp(); }
   else{ $('login').style.display='flex'; $('app').style.display='none'; }
 });
-$('uav').addEventListener('click',()=>{ if(confirm('로그아웃할까요?')) signOut(auth); });
+$('uav').addEventListener('click',()=>{
+  /* 관리자가 처음 열 때 기본 명단을 DB에 1회 시딩 — 이후엔 DB가 정본 */
+  if(isAdmin() && !teamCache){
+    const seed={}; DEFAULT_TEAM.forEach((t,i)=>seed['t'+i]={...t,o:i});
+    set(ref(db,'atc/cal/team'),seed);
+  }
+  $('team-add').style.display = isAdmin() ? '':'none';
+  renderTeam();
+  $('team-dlg').showModal();
+});
 
 function enterApp(){
   $('login').style.display='none'; $('app').style.display='block';
-  const av=$('uav'); av.textContent=me.av; av.className='avatar '+me.avCls;
+  const av=$('uav'); av.textContent=me.av; av.className='avatar '+me.avCls; av.title='팀원 연락처 · 로그아웃';
   const open=parseKey(EX_START), t=parseKey(todayKey);
   const dd=Math.round((open-t)/86400000);
   $('dday').textContent = dd>0?'D-'+dd : (todayKey<=EX_END?'D+'+(1-dd):'종료');
@@ -488,7 +596,6 @@ function enterApp(){
   }
   $('ev-add').style.display = canManage() ? 'flex':'none';
   $('is-add').style.display = canManage() ? 'flex':'none';
-  $('shift-edit').style.display = canManage() ? '':'none';
   startListeners();
   switchView('day'); // 기본 = 오늘 (기간 밖이면 가장 가까운 날로 클램프)
   setInterval(function(){ if(keyOf(new Date())!==todayKey) location.reload(); }, 60000); // 자정 넘김 — 오늘 기준 전부 갱신
@@ -500,7 +607,9 @@ function startListeners(){
   onValue(ref(db,'atc/cal/events'),s=>{evCache=s.val()||{};renderAll();});
   onValue(ref(db,'atc/cal/issues'),s=>{isCache=s.val()||{};renderAll();});
   onValue(ref(db,'atc/cal/share'), s=>{shCache=s.val()||{};renderAll();});
-  onValue(ref(db,'atc/cal/shift'), s=>{shiftCache=s.val()||{};renderDay();});
+  onValue(ref(db,'atc/cal/att'),   s=>{attCache=s.val()||{};renderAtt();renderRp();});
+  onValue(ref(db,'atc/cal/venue'), s=>{venueCache=s.val();renderAtt();});
+  onValue(ref(db,'atc/cal/team'),  s=>{teamCache=s.val();renderTeam();});
   onValue(ref(db,'atc/cal/contacts'),s=>{contactsCache=s.val();});
   onValue(ref(db,'atc/cal/report'),s=>{rpCache=s.val()||{};renderRp();if(curView==='month')renderMonth();});
 }
@@ -516,11 +625,12 @@ function switchView(v){
   curView=v;
   document.querySelectorAll('.views button[data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
   document.querySelectorAll('.page').forEach(p=>p.classList.toggle('on',p.dataset.page===v));
-  if(v==='sheet'){ const f=$('sheet-frame'); if(!f.src) f.src=SHEET_VIEW; $('sheet-open').href=SHEET_URL; }
+  if(v==='sheet'){ $('sheet-open').href=SHEET_URL; renderWorklog(); }
   renderAll();
 }
 document.querySelectorAll('.views button[data-v]').forEach(b=>b.addEventListener('click',()=>switchView(b.dataset.v)));
-function renderAll(){ if(curView==='month')renderMonth(); else if(curView==='week')renderWeek(); renderDay(); }
+function renderAll(){ if(curView==='month')renderMonth(); else if(curView==='week')renderWeek();
+  else if(curView==='sheet')renderWorklog(); renderDay(); }
 
 /* 카운트 헬퍼 */
 const cnt = (cache,k)=> Object.keys(cache[k]||{}).length;
@@ -573,7 +683,7 @@ function renderWeek(){
       ...Object.values(evCache[k]||{}).sort((a,b)=>(a.tm||'99')<(b.tm||'99')?-1:1)];
     const lines=evs.map(e=>'<div class="ln">'+(e.tm?'<span class="t">'+e.tm+'</span>':'')+esc(e.t||e.text)+'</div>').join('');
     const nIs=cnt(isCache,k), nSh=cnt(shCache,k);
-    const shNames=(shiftCache[k]&&shiftCache[k].names||[]).join('·');
+    const shNames=workersOf(k).join('·');
     card.innerHTML='<div class="h"><span class="dt'+(d.getDay()===0?' sun':'')+'">'+ (d.getMonth()+1)+'.'+d.getDate()+' '+DOW[d.getDay()]+'</span>'
       +'<span class="bdg '+dt.cls+'">'+dt.label+'</span>'
       +'<span class="cnts">'+(shNames?'👤'+shNames+' ':'')+(nIs?'<b style="color:var(--red)">특'+nIs+'</b>':'')+(nSh?'<b style="color:var(--blu)">공'+nSh+'</b>':'')+'</span></div>'
@@ -595,11 +705,7 @@ function renderDay(){
     +(k===todayKey?'<small>오늘</small>':'')+'</span><span class="bdg '+dt.cls+'">'+dt.label+'</span>';
   listenEx(k);
 
-  /* 근무 */
-  const names=(shiftCache[k]&&shiftCache[k].names)||[];
-  $('shift-chips').innerHTML = names.length
-    ? names.map(n=>'<span class="pchip view">'+esc(n)+'</span>').join('')
-    : '<span class="empty">미지정</span>';
+  renderAtt();
 
   /* 주요 일정 */
   const fixed=(FIXED[k]||[]).map(f=>'<div class="item fx"><span class="tm">'+(f.tm||'—')+'</span><span class="txt">'+esc(f.t)+'</span><span class="lock">고정</span></div>').join('');
@@ -623,29 +729,126 @@ function renderDay(){
       +'<button class="del" data-del-sh="'+id+'">✕</button></div>').join('');
   $('sh-list').innerHTML=shs||'<div class="empty">공유사항 없음</div>';
 
-  renderRp();
   renderCk();
 }
-/* ── 일일 보고 (근무일지 시트 연동) ── */
-let rpDirtyFor=null; // 입력 중인 날짜 — 그 날짜의 원격 갱신으로 입력을 덮지 않음
-function renderRp(){
-  const k=selDay; const dt=dayType(k);
-  if(rpDirtyFor && rpDirtyFor!==k) rpDirtyFor=null; // 날짜 이동 시 입력 보호 해제
+/* ── 출결 (전시장 와이파이 = 공인 IP 대조) ── */
+const attOf = k => attCache[k]||{};
+const workersOf = k => ATT_ROSTER.filter(p=>attOf(k)[p.id]&&attOf(k)[p.id].in).map(p=>p.name);
+$('att-h').addEventListener('click',()=>$('sec-att').classList.toggle('open'));
 
-  $('sec-rp').style.display = (dt.cls==='prep'||dt.cls==='wrap') ? 'none':'';
+function renderAtt(){
+  const k=selDay, rec=attOf(k), today=(k===todayKey);
+  const mine = ATT_ROSTER.filter(p=>p.id===meId);
+  const rows = isAdmin() ? ATT_ROSTER : mine;
+  $('att-sum').textContent = isAdmin()
+    ? workersOf(k).length+'/'+ATT_ROSTER.length+' 출근'
+    : (mine.length?'':'본인 기록 없음');
+
+  $('att-list').innerHTML = rows.length ? rows.map(p=>{
+    const r=rec[p.id]||{};
+    const noAcct = p.id==='tbd';
+    const tms = (r.in?'<b>출근 '+esc(r.in)+'</b>':'<span>출근 —</span>')
+              + (r.out?' · <u>퇴근 '+esc(r.out)+'</u>':' · 퇴근 —')
+              + ((r.inOff||r.outOff)?' <span class="warn">⚠ 외부망</span>':'');
+    let btn='';
+    if(p.id===meId && today) btn = !r.in
+        ? '<button class="btn" data-punch="in">출근</button>'
+        : (!r.out ? '<button class="btn out" data-punch="out">퇴근</button>' : '');
+    else if(isAdmin() && !noAcct) btn='<button class="btn fix" data-fix="'+p.id+'">수정</button>';
+    return '<div class="att"><span class="nm">'+esc(p.name)+'</span><span class="tms">'+tms+'</span>'+btn+'</div>';
+  }).join('') : '<div class="empty">출결 대상이 아닙니다. 관리자만 전체 출결을 볼 수 있습니다.</div>';
+
+  const note=[];
+  if(!today) note.push('오늘이 아닌 날짜는 기록할 수 없습니다'+(isAdmin()?' — 관리자는 [수정]으로 입력':''));
+  if(venueIp()) note.push(atVenue()
+      ? '<b>전시장 와이파이 확인됨</b>'+(myIp?'':' (IP 조회 실패 — 기록에 ⚠ 표시)')
+      : '<s>전시장 와이파이가 아닙니다</s> — 전시장 와이파이에 연결해야 출퇴근이 열립니다');
+  else note.push('전시장 와이파이 미등록 — 지금은 어디서나 기록됩니다');
+  if(isAdmin()) note.push('<button id="att-wifi">'+(venueIp()?'전시장 IP 재등록 (현재 '+esc(venueIp())+')':'현재 IP를 전시장 와이파이로 등록')+'</button>');
+  $('att-note').innerHTML=note.join('<br>');
+  const wb=$('att-wifi');
+  if(wb) wb.addEventListener('click',()=>{
+    if(!myIp){toast('현재 IP를 확인하지 못했습니다');return;}
+    if(confirm('현재 접속 IP '+myIp+' 를 전시장 와이파이로 등록할까요?\n(전시장에서 눌러야 합니다)'))
+      set(ref(db,'atc/cal/venue'),{ip:myIp,by:myName(),ts:Date.now()});
+  });
+  // 본인 버튼: 전시장 와이파이가 아니면 잠금
+  $('att-list').querySelectorAll('[data-punch]').forEach(b=>{
+    if(!atVenue()){b.disabled=true;b.textContent='전시장 와이파이 필요';}
+    else b.addEventListener('click',()=>punch(b.dataset.punch));
+  });
+  $('att-list').querySelectorAll('[data-fix]').forEach(b=>b.addEventListener('click',()=>fixAtt(b.dataset.fix)));
+}
+function punch(kind){
+  const off = !!(venueIp() && myIp && myIp!==venueIp());
+  const now = hhmm();
+  if(kind==='out' && !confirm('퇴근 '+now+' 으로 기록할까요?')) return;
+  update(ref(db,'atc/cal/att/'+selDay+'/'+meId),
+    kind==='in' ? {in:now,inTs:Date.now(),inIp:myIp||null,inOff:off||null,name:me.name}
+                : {out:now,outTs:Date.now(),outIp:myIp||null,outOff:off||null});
+  toast((kind==='in'?'출근':'퇴근')+' '+now+' 기록');
+}
+function fixAtt(pid){
+  const r=(attOf(selDay))[pid]||{};
+  const v=prompt('출근-퇴근 시각 (예: 12:00-20:00, 빈칸이면 삭제)', (r.in||'')+'-'+(r.out||''));
+  if(v===null) return;
+  const [i,o]=v.split('-').map(x=>x.trim());
+  const path=ref(db,'atc/cal/att/'+selDay+'/'+pid);
+  if(!i&&!o){ remove(path); toast('삭제'); return; }
+  update(path,{in:i||null,out:o||null,fixBy:myName(),fixAt:Date.now()});
+  toast('수정 완료');
+}
+
+/* ── 근무일지 (앱 내 입력 → 구글시트 전송) ── */
+$('go-wl').addEventListener('click',()=>switchView('sheet'));
+$('s-prev').addEventListener('click',()=>{selDay=clampKey(addDays(selDay,-1));renderAll();});
+$('s-next').addEventListener('click',()=>{selDay=clampKey(addDays(selDay,1));renderAll();});
+$('s-today').addEventListener('click',()=>{selDay=clampKey(todayKey);renderAll();});
+const RP_FIELDS=['rp-va','rp-vr','rp-gr','rp-ev','rp-pp','rp-po'];
+let rpDirtyFor=null; // 입력 중인 날짜 — 그 날짜의 원격 갱신으로 입력을 덮지 않음
+function notesOf(k){
+  return Object.values(isCache[k]||{}).sort((a,b)=>a.ts-b.ts).map(e=>'['+(e.type||'특이')+'] '+e.text).join('\n');
+}
+function renderWorklog(){
+  selDay=clampKey(selDay);
+  const d=parseKey(selDay);
+  $('s-title').innerHTML=(d.getMonth()+1)+'.'+d.getDate()+' <small>'+DOW[d.getDay()]+'</small>';
+  renderRp();
+  /* 기간 전체 — 빠진 날 한눈에 */
+  let rows='';
+  for(let k=EX_START;k<=EX_END;k=addDays(k,1)){
+    const r=rpCache[k]||{}, dd=parseKey(k);
+    const st = r.sentAt?'sent':(r.ts?'saved':'none');
+    const lab= r.sentAt?'전송됨':(r.ts?'저장됨':'—');
+    rows+='<div class="wl-row'+(k===selDay?' on':'')+(CLOSED[k]?' closed':'')+'" data-wl="'+k+'">'
+      +'<span class="dt">'+(dd.getMonth()+1)+'.'+dd.getDate()+'</span>'
+      +'<span class="vs">'+(CLOSED[k]?'휴관':(r.va||r.vr?'실제 '+(r.va||'—')+' / 보고 '+(r.vr||'—'):'—'))+'</span>'
+      +'<span class="stt '+st+'">'+lab+'</span></div>';
+  }
+  $('wl-table').innerHTML=rows;
+  $('wl-table').querySelectorAll('[data-wl]').forEach(b=>b.addEventListener('click',()=>{
+    selDay=b.dataset.wl; renderAll();
+  }));
+}
+function renderRp(){
+  const k=selDay, dt=dayType(k);
+  if(rpDirtyFor && rpDirtyFor!==k) rpDirtyFor=null; // 날짜 이동 시 입력 보호 해제
+  $('wl-workers').textContent = workersOf(k).join(', ') || '—';
+  $('wl-notes').textContent   = notesOf(k) || '—';
+  $('sec-rp').style.display = (dt.cls==='prep'||dt.cls==='wrap'||CLOSED[k]) ? 'none':'';
   if(rpDirtyFor===k) return;
   const r=rpCache[k]||{};
-  $('rp-va').value=r.va||''; $('rp-vr').value=r.vr||'';
-  $('rp-pp').value=r.pp||''; $('rp-po').value=r.po||'';
-  $('rp-gr').value=r.gr||'';
+  $('rp-va').value=r.va||''; $('rp-vr').value=r.vr||''; $('rp-gr').value=r.gr||'';
+  $('rp-ev').value=r.ev||''; $('rp-pp').value=r.pp||''; $('rp-po').value=r.po||'';
   const st=$('rp-sync-st');
   if(r.sentAt){st.textContent='시트 전송됨 · '+r.sentAt+' '+(r.sentBy||'');st.className='r ok';}
-  else{st.textContent='근무일지 시트 연동';st.className='r';}
+  else if(r.ts){st.textContent='앱에 저장됨 (시트 미전송)';st.className='r';}
+  else{st.textContent='시트 미전송';st.className='r';}
 }
-['rp-va','rp-vr','rp-pp','rp-po','rp-gr'].forEach(id=>$(id).addEventListener('input',()=>{rpDirtyFor=selDay;}));
+RP_FIELDS.forEach(id=>$(id).addEventListener('input',()=>{rpDirtyFor=selDay;}));
 function rpData(){
-  return {va:$('rp-va').value.trim(), vr:$('rp-vr').value.trim(),
-          pp:$('rp-pp').value.trim(), po:$('rp-po').value.trim(), gr:$('rp-gr').value.trim()};
+  return {va:$('rp-va').value.trim(), vr:$('rp-vr').value.trim(), gr:$('rp-gr').value.trim(),
+          ev:$('rp-ev').value.trim(), pp:$('rp-pp').value.trim(), po:$('rp-po').value.trim()};
 }
 $('rp-save').addEventListener('click',()=>{
   update(ref(db,'atc/cal/report/'+selDay), {...rpData(), by:myName(), ts:Date.now()});
@@ -653,13 +856,13 @@ $('rp-save').addEventListener('click',()=>{
 });
 $('rp-send').addEventListener('click',async ()=>{
   if(!GAS_URL){toast('시트 연동 미개통 — GAS 배포 후 사용 가능');return;}
-  const d=rpData(); const k=selDay;
-  const names=((shiftCache[k]&&shiftCache[k].names)||[]).join(', ');
-  const notes=Object.values(isCache[k]||{}).sort((a,b)=>a.ts-b.ts).map(e=>'['+(e.type||'특이')+'] '+e.text).join('\n');
+  const d=rpData(), k=selDay;
+  const names=workersOf(k).join(', '), notes=notesOf(k);
   const payload={date:k};
   if(d.va||d.vr) payload.visitors={actual:d.va,reported:d.vr};
   if(d.pp||d.po) payload.participants={pre:d.pp,onsite:d.po};
   if(d.gr) payload.group=d.gr;
+  if(d.ev) payload.event=d.ev;
   if(names) payload.workers=names;
   if(notes) payload.notes=notes;
   $('rp-send').disabled=true; $('rp-send').textContent='전송 중…';
@@ -733,20 +936,6 @@ document.addEventListener('keydown',e=>{
     e.target.parentElement.querySelector('button:last-child').click();
 });
 
-/* 근무 편집: 로스터 토글 → 저장 */
-$('shift-edit').addEventListener('click',()=>{
-  const cur=new Set((shiftCache[selDay]&&shiftCache[selDay].names)||[]);
-  const box=$('shift-chips');
-  box.innerHTML=ROSTER.map(n=>'<button class="pchip'+(cur.has(n)?' on':'')+'" data-n="'+esc(n)+'">'+esc(n)+'</button>').join('')
-    +'<button class="pchip" id="shift-save" style="background:var(--red);color:#fff;border-color:var(--red)">저장</button>';
-  box.querySelectorAll('[data-n]').forEach(b=>b.addEventListener('click',()=>b.classList.toggle('on')));
-  $('shift-save').addEventListener('click',()=>{
-    const names=[...box.querySelectorAll('[data-n].on')].map(b=>b.dataset.n);
-    set(ref(db,'atc/cal/shift/'+selDay), names.length?{names,by:myName()}:null);
-    toast('근무 저장');
-  });
-});
-
 /* 삭제·체크 위임 */
 document.addEventListener('click',e=>{
   const d=e.target.dataset||{};
@@ -764,7 +953,40 @@ document.addEventListener('change',e=>{
     update(ref(db,'atc/ex/'+selDay+'/'+sec+'/'+id),{done:t.checked,by:t.checked?stamp:null}); }
 });
 
-/* ── 연락처 ── */
+/* ── 팀원 연락처 (아바타) ── */
+const teamRows = ()=> teamCache
+  ? Object.entries(teamCache).sort((a,b)=>(a[1].o||0)-(b[1].o||0))
+  : DEFAULT_TEAM.map((t,i)=>['d'+i,t]);
+function renderTeam(){
+  $('team-list').innerHTML = teamRows().map(([id,t])=>{
+    const tel=String(t.phone||'').replace(/[^0-9+]/g,'');
+    return '<div class="tm-row"><span class="i"><b>'+esc(t.name||'')+'</b><span>'+esc(t.role||'')+(t.phone?' · '+esc(t.phone):' · 번호 미입력')+'</span></span>'
+      + '<a class="call'+(tel?'':' off')+'" href="'+(tel?'tel:'+tel:'#')+'">전화</a>'
+      + (isAdmin()&&teamCache?'<button class="ed" data-tm="'+id+'">✎</button>':'')+'</div>';
+  }).join('');
+  $('team-list').querySelectorAll('[data-tm]').forEach(b=>b.addEventListener('click',()=>editTeam(b.dataset.tm)));
+}
+function editTeam(id){
+  const t=(teamCache||{})[id]||{};
+  const v=prompt('이름 | 역할 | 전화번호  (이름을 비우면 삭제)', [t.name||'',t.role||'',t.phone||''].join(' | '));
+  if(v===null) return;
+  const [name,role,phone]=v.split('|').map(x=>x.trim());
+  if(!name){ if(confirm('삭제할까요?')) remove(ref(db,'atc/cal/team/'+id)); return; }
+  update(ref(db,'atc/cal/team/'+id),{name,role:role||'',phone:phone||''});
+  toast('저장');
+}
+$('team-add').addEventListener('click',()=>{
+  const v=prompt('이름 | 역할 | 전화번호','');
+  if(!v) return;
+  const [name,role,phone]=v.split('|').map(x=>x.trim());
+  if(!name) return;
+  push(ref(db,'atc/cal/team'),{name,role:role||'',phone:phone||'',o:Object.keys(teamCache||{}).length});
+  toast('추가');
+});
+$('team-x').addEventListener('click',()=>$('team-dlg').close());
+$('team-logout').addEventListener('click',()=>{ if(confirm('로그아웃할까요?')){$('team-dlg').close();signOut(auth);} });
+
+/* ── 비상연락망 ── */
 $('contacts-btn').addEventListener('click',()=>{
   const dlg=$('contacts-dlg'); const body=$('contacts-body');
   const text=(contactsCache&&contactsCache.text)||DEFAULT_CONTACTS;
