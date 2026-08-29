@@ -62,8 +62,9 @@
     letter-spacing:0;padding-right:38px}
   .live i{width:7px;height:7px;border-radius:50%;background:var(--grn);display:inline-block}
   .live.off{color:var(--ink3)} .live.off i{background:var(--ink3)}
-  .dday{background:var(--red);color:#fff;border-radius:999px;vertical-align:2px;margin-left:8px;
-    padding:2px 9px;font-weight:800;font-size:11px;font-family:var(--num)}
+  .ddaywrap{display:inline-block;padding-left:9px;position:relative;top:-1px}
+  .dday{display:inline-block;background:var(--red);color:#fff;border-radius:999px;
+    padding:2px 9px;font-weight:800;font-size:11px;font-family:var(--num);line-height:1.45}
   #sheet-frame{width:100%;height:calc(100vh - 170px);border:1px solid var(--line);border-radius:5px;background:#fff}
   .sheet-open{display:inline-block;margin-bottom:9px;border:1px solid var(--line);border-radius:4px;
     padding:7px 13px;font-size:12.5px;font-weight:700;color:var(--ink);text-decoration:none;background:var(--card)}
@@ -220,7 +221,7 @@
     <button class="avatar" id="uav" title="로그아웃"></button>
     <div class="eyebrow">전시장 운영인력 페이지 <span class="live off" id="live"><i></i><span id="live-t">연결 중…</span></span></div>
     <h1>인류학 연습:<br>인간은 우리인가?
-      <span class="en">Doing Anthropology: Are Humans We?<span class="dday" id="dday"></span></span>
+      <span class="en">Doing Anthropology: Are Humans We?<span class="ddaywrap"><span class="dday" id="dday"></span></span></span>
     </h1>
     <p class="keyinfo">
       <strong>2026. 9. 1(화) – 9. 20(일)</strong> · 12:00–20:00<br>
