@@ -64,7 +64,7 @@
   .live.off{color:var(--ink3)} .live.off i{background:var(--ink3)}
   .ddaywrap{display:inline-block;padding-left:9px;position:relative;top:-1px}
   .dday{display:inline-block;background:var(--red);color:#fff;border-radius:999px;
-    padding:2px 9px;font-weight:800;font-size:11px;font-family:var(--num);line-height:1.45}
+    padding:2px 9px;font-weight:800;font-size:11px;font-family:var(--num);line-height:1.45;white-space:nowrap}
   #sheet-frame{width:100%;height:calc(100vh - 170px);border:1px solid var(--line);border-radius:5px;background:#fff}
   .sheet-open{display:inline-block;margin-bottom:9px;border:1px solid var(--line);border-radius:4px;
     padding:7px 13px;font-size:12.5px;font-weight:700;color:var(--ink);text-decoration:none;background:var(--card)}
@@ -481,7 +481,7 @@ function enterApp(){
   const av=$('uav'); av.textContent=me.av; av.className='avatar '+me.avCls;
   const open=parseKey(EX_START), t=parseKey(todayKey);
   const dd=Math.round((open-t)/86400000);
-  $('dday').textContent = dd>0?'개막 D-'+dd : (todayKey<=EX_END?'전시 D+'+(1-dd):'전시 종료');
+  $('dday').textContent = dd>0?'D-'+dd : (todayKey<=EX_END?'D+'+(1-dd):'종료');
   if(meId==='staff' && !staffSel){
     const n=prompt('본인 이름을 선택하세요: '+STAFF_NAMES.join(' / '), STAFF_NAMES[0]);
     if(n){staffSel=n.trim(); localStorage.setItem('atc-cal-staff',staffSel);}
