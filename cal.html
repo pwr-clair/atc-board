@@ -731,6 +731,7 @@ function renderEvents(){
     .filter(x=>!(ov[x.id]||{}).del);
   const evs=Object.entries(evCache[k]||{}).map(([id,e])=>({id,src:'ev',tm:e.tm,text:e.text,by:e.by,done:!!e.done,o:e.o}));
   const all=[...fixed,...evs].sort((a,b)=>{
+    if(!!a.done!==!!b.done) return a.done?1:-1;            // 완료는 맨 아래로 (해제하면 o가 그대로라 제자리)
     const ao=a.o==null?999:a.o, bo=b.o==null?999:b.o;      // 손으로 옮긴 순서가 우선, 없으면 시간순
     return ao!==bo ? ao-bo : (((a.tm||'99')<(b.tm||'99'))?-1:1);
   });
