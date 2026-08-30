@@ -12,11 +12,11 @@
     /* 전시 홈페이지(anthroydp.site) 다크 톤앤매너 · 주조색 빨강 */
     --paper:#0d0f15; --card:#151a26; --well:#1a2130;
     --ink:#f0f2f7; --ink2:#a0a9c6; --ink3:#6d7694; --line:#27304a; --hair:#1f2740;
-    /* 2026-08-30 클라라: 색은 빨강·보라 2색만. 기존 초록/파랑 변수는 보라로 접어 사용처를 일괄 전환 */
-    --pur:#7D6DF2; --pur-soft:rgba(125,109,242,.16);
+    /* 2026-08-30 클라라: 단색(빨강). 포스터 나머지 색 변수는 빨강으로 접어 사용처를 일괄 전환 */
     --red:#F0604A; --red-soft:rgba(240,96,74,.15);
-    --grn:var(--pur); --grn-ink:var(--pur); --grn-soft:var(--pur-soft);
-    --blu:var(--pur); --blu-soft:var(--pur-soft);
+    --pur:var(--red); --pur-soft:var(--red-soft);
+    --grn:var(--red); --grn-ink:var(--red); --grn-soft:var(--red-soft);
+    --blu:var(--red); --blu-soft:var(--red-soft);
     --num:ui-monospace,"SF Mono",Menlo,monospace;
     --halftone:radial-gradient(circle,rgba(255,255,255,.05) 1px,transparent 1.1px);
   }
@@ -85,14 +85,14 @@
   .navrow .cur small{font-family:var(--num);font-weight:600;color:var(--ink3);font-size:10.5px;margin-left:6px}
   .navrow .today-btn{width:auto;padding:0 10px;font-size:11px;font-weight:700}
   /* 날짜 네비 = 제목 겸용 (기존 navrow+dayhead 이중 표기 통합) */
-  .dnav{display:flex;align-items:center;gap:7px;margin:0 0 22px}
-  .dnav button{flex:none;border:1px solid var(--line);background:var(--card);border-radius:4px;
-    width:30px;height:30px;color:var(--ink2);font-size:15px;line-height:1}
-  .dnav .dt{display:flex;align-items:baseline;gap:6px;font-size:18px;font-weight:800;white-space:nowrap}
-  .dnav .dt i{font-style:normal;font-size:12.5px;font-weight:700;color:var(--ink3)}
+  .dnav{display:flex;align-items:center;gap:6px;margin:0 0 18px}
+  .dnav button{flex:none;border:1px solid var(--line);background:transparent;border-radius:4px;
+    width:23px;height:23px;color:var(--ink3);font-size:12px;line-height:1;padding:0}
+  .dnav .dt{display:flex;align-items:baseline;gap:5px;font-size:16px;font-weight:800;white-space:nowrap;margin:0 2px}
+  .dnav .dt i{font-style:normal;font-size:11.5px;font-weight:700;color:var(--ink3)}
   .dnav .dt .sun{color:var(--red)}
   .dnav .sp{flex:1}
-  .dnav .today-btn{width:auto;padding:0 11px;height:30px;font-size:11px;font-weight:800}
+  .dnav .today-btn{width:auto;padding:0 10px;height:23px;font-size:10.5px;font-weight:800}
 
   /* ===== month grid ===== */
   .dow{display:grid;grid-template-columns:repeat(7,1fr);font-size:9.5px;font-weight:800;color:var(--ink3);
@@ -138,31 +138,34 @@
   .bdg.prep{background:var(--blu-soft);color:var(--blu)}
   .bdg.wrap{background:var(--pur-soft);color:var(--pur)}
 
-  .sec{margin-bottom:30px}
-  .sec-t{font-size:17px;font-weight:800;letter-spacing:-.01em;color:var(--ink);
-    border-bottom:1px solid var(--line);padding-bottom:10px;margin:0 0 6px;display:flex;align-items:center;gap:8px}
-  .sec-t .tri{flex:none;color:var(--red);font-size:11px;display:inline-block;transition:transform .15s}
+  .sec{margin-bottom:24px}
+  .sec-t{font-size:15px;font-weight:800;letter-spacing:-.01em;color:var(--ink);
+    border-bottom:1px solid var(--line);padding-bottom:8px;margin:0 0 3px;display:flex;align-items:center;gap:7px}
+  .sec-t .tri{flex:none;color:var(--red);font-size:10px;display:inline-block;transition:transform .15s}
   .sec.fold.open .sec-t .tri{transform:rotate(90deg)}
   /* 당일 공지 — 유일하게 박스로 띄워 하루의 머리글 노릇 */
-  .sec.box{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:14px 15px 13px}
+  .sec.box{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:12px 13px 11px}
   .rp-grid{display:grid;grid-template-columns:76px 1fr;gap:7px 9px;align-items:center}
   .rp-grid label{font-size:11.5px;font-weight:800;color:var(--ink2)}
   .rp-grid input{border:1px solid var(--line);border-radius:4px;padding:8px 10px;font-size:14px;min-width:0}
   #rp-sync-st.ok{color:var(--pur)}
   .sec-t .r{margin-left:auto;font-size:11px;font-weight:700;color:var(--ink3);letter-spacing:0}
 
-  .item{display:flex;align-items:flex-start;gap:9px;padding:10px 2px;border-bottom:1px solid var(--hair);font-size:14px}
+  .item{display:flex;align-items:flex-start;gap:8px;padding:7px 2px;border-bottom:1px solid var(--hair);font-size:13.5px}
   .sec .item:last-of-type{border-bottom:0}
-  .item .tm{flex:none;font-family:var(--num);font-size:11.5px;font-weight:700;color:var(--pur);padding-top:2px;min-width:38px}
+  .item .tm{font-style:normal;font-family:var(--num);font-size:11.5px;font-weight:700;color:var(--red);margin-right:6px}
   .item .txt{min-width:0;white-space:pre-wrap;word-break:break-word;flex:1}
-  .item .by{flex:none;font-size:9.5px;color:var(--ink3);font-family:var(--num);padding-top:4px}
+  .item .by{flex:none;font-size:9.5px;color:var(--ink3);font-family:var(--num);padding-top:3px}
   .item .del{flex:none;border:0;background:none;color:var(--ink3);font-size:13px;padding:0 2px}
-  .item.fx .txt{font-weight:700}
-  .item.fx .lock{flex:none;font-size:9px;color:var(--ink3);padding-top:4px}
   .item .chip{flex:none;font-size:9.5px;font-weight:800;border-radius:2px;padding:1px 6px;margin-top:3px}
   .chip.i1{background:var(--red-soft);color:var(--red)}
   .chip.i2{background:var(--blu-soft);color:var(--blu)}
-  .item input[type=checkbox]{width:19px;height:19px;accent-color:var(--red);margin-top:1px;flex:none}
+  /* 기본 체크박스는 체크가 뭉툭해서 직접 그린다 */
+  .item input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:none;position:relative;
+    width:15px;height:15px;margin:2px 0 0;border:1px solid var(--line);border-radius:3px;background:transparent}
+  .item input[type=checkbox]:checked{border-color:var(--red)}
+  .item input[type=checkbox]:checked::after{content:'';position:absolute;left:4.5px;top:1px;
+    width:4px;height:8px;border:solid var(--red);border-width:0 1.4px 1.4px 0;transform:rotate(43deg)}
   .item.done .txt{color:var(--ink3);text-decoration:line-through}
   .empty{font-size:12px;color:var(--ink3);padding:6px 2px}
 
@@ -170,6 +173,8 @@
   .add input[type=text]{flex:1;border:1px solid var(--line);border-radius:4px;padding:9px 11px;font-size:14px;min-width:0}
   .add input.tm-in{flex:none;width:64px;font-family:var(--num);text-align:center}
   .add button{border:0;background:var(--red);color:#fff;border-radius:4px;padding:0 14px;font-size:13px;font-weight:700}
+  .add button.tmbtn{background:var(--well);color:var(--ink3);border:1px solid var(--line);padding:0 10px;font-size:11.5px;font-weight:800}
+  .add button.tmbtn.on{background:var(--red-soft);color:var(--red);border-color:var(--red)}
   .add.big button{min-height:44px;font-size:14px;font-weight:800;border-radius:5px}
   .seg{display:flex;border:1px solid var(--line);border-radius:4px;overflow:hidden;flex:none}
   .seg button{border:0;background:var(--card);padding:0 10px;font-size:11.5px;font-weight:700;color:var(--ink3)}
@@ -236,14 +241,14 @@
   /* checklist */
   .ck-wrap{border-bottom:1px solid var(--hair)}
   .ck-wrap:last-child{border-bottom:0}
-  .ck-h{display:flex;align-items:center;gap:7px;padding:12px 2px;font-size:13px;font-weight:800;cursor:pointer}
+  .ck-h{display:flex;align-items:center;gap:7px;padding:10px 2px;font-size:12.5px;font-weight:800;cursor:pointer}
   .ck-h .tri{flex:none;color:var(--grn-ink);font-size:9px;display:inline-block;transition:transform .15s}
   .ck-wrap.open .ck-h .tri{transform:rotate(90deg)}
   .ck-h .pr{margin-left:auto;font-family:var(--num);font-size:10.5px;font-weight:600;color:var(--ink3)}
   .ck-body{display:none;padding:0 2px 10px 16px}
   .ck-wrap.open .ck-body{display:block}
   .ck-g{font-size:10px;font-weight:800;letter-spacing:.08em;color:var(--ink3);margin:9px 0 2px}
-  .ck-body .item{font-size:13px;padding:6px 0}
+  .ck-body .item{font-size:12.5px;padding:5px 0}
 
   /* contacts modal */
   dialog{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:0;max-width:88vw;width:340px;max-height:84vh;overflow:auto}
@@ -370,13 +375,14 @@
       <div class="sec-t">당일 주요일정 · 공지</div>
       <div id="ev-list"></div>
       <div class="add" id="ev-add">
-        <input class="tm-in" id="ev-tm" type="text" placeholder="14:00" inputmode="numeric">
+        <input class="tm-in" id="ev-tm" type="text" placeholder="14:00" inputmode="numeric" style="display:none">
         <input type="text" id="ev-inp" placeholder="+ 일정 · 공지">
+        <button class="tmbtn" id="ev-tmtog">시간</button>
         <button id="ev-btn">추가</button>
       </div>
     </div>
 
-    <div class="sec fold open" id="sec-att">
+    <div class="sec fold" id="sec-att">
       <div class="sec-t" id="att-h"><i class="tri">▶</i>출결 확인<span class="r" id="att-sum"></span></div>
       <div class="fold-b"><div id="att-list"></div><div class="att-note" id="att-note"></div></div>
     </div>
@@ -508,7 +514,7 @@ const todayKey = keyOf(new Date());
 /* ── 상태 ── */
 let me=null, meId=null;
 let evCache={}, isCache={}, shCache={}, rpCache={};
-let attCache={}, venueCache=null, teamCache=null, myIp=null;
+let attCache={}, venueCache=null, teamCache=null, myIp=null, evxCache={};
 let exCache={}, exDoneCache={}, exDate=null, exUnsub=[];
 let selDay = clampKey(todayKey);
 let curView = 'month';
@@ -580,6 +586,7 @@ function enterApp(){
 function startListeners(){
   onValue(ref(db,'.info/connected'),s=>{const on=!!s.val();$('live').classList.toggle('off',!on);$('live-t').textContent=on?'실시간 연결됨':'연결 끊김';});
   onValue(ref(db,'atc/cal/events'),s=>{evCache=s.val()||{};renderAll();});
+  onValue(ref(db,'atc/cal/evx'),   s=>{evxCache=s.val()||{};renderAll();}); // 고정 일정의 체크·삭제·수정 흔적
   onValue(ref(db,'atc/cal/issues'),s=>{isCache=s.val()||{};renderAll();});
   onValue(ref(db,'atc/cal/share'), s=>{shCache=s.val()||{};renderAll();});
   onValue(ref(db,'atc/cal/att'),   s=>{attCache=s.val()||{};renderAtt();renderRp();});
@@ -651,7 +658,8 @@ function renderWeek(){
     const d=parseKey(k); const dt=dayType(k);
     const card=document.createElement('div');
     card.className='wday'+(CLOSED[k]?' closed':'')+(k===todayKey?' today':'');
-    const evs=[...(FIXED[k]||[]).map(f=>({tm:f.tm,t:f.t})),
+    const ovw=evxCache[k]||{};
+    const evs=[...(FIXED[k]||[]).map((f,i)=>({tm:f.tm,t:f.t,fi:'f'+i})).filter(f=>!(ovw[f.fi]||{}).del),
       ...Object.values(evCache[k]||{}).sort((a,b)=>(a.tm||'99')<(b.tm||'99')?-1:1)];
     const lines=evs.map(e=>'<div class="ln">'+(e.tm?'<span class="t">'+e.tm+'</span>':'')+esc(e.t||e.text)+'</div>').join('');
     const nIs=cnt(isCache,k)+cnt(shCache,k);
@@ -685,18 +693,41 @@ function renderDay(){
 
   renderAtt();
 
-  /* 주요 일정 */
-  const fixed=(FIXED[k]||[]).map(f=>'<div class="item fx"><span class="tm">'+(f.tm||'—')+'</span><span class="txt">'+esc(f.t)+'</span><span class="lock">고정</span></div>').join('');
-  const evs=Object.entries(evCache[k]||{}).sort((a,b)=>(a[1].tm||'99')<(b[1].tm||'99')?-1:1)
-    .map(([id,e])=>'<div class="item"><span class="tm">'+(e.tm?esc(e.tm):'—')+'</span><span class="txt" style="color:'+inkOf(e.by)+'">'+esc(e.text)+'</span>'
-      +'<span class="by">'+esc(e.by||'')+'</span>'
-      +(isAdmin()?'<button class="del" data-del-ev="'+id+'">✕</button>':'')+'</div>').join('');
-  $('ev-list').innerHTML=(fixed+evs)||'<div class="empty">등록된 일정 없음</div>';
-
+  renderEvents();
   renderNotes();
   renderCk();
 }
 /* 특이 · 요청 · 업무 공유 — 저장 경로(issues/share)는 그대로 두고 화면에서만 한 목록으로 합친다 */
+/* 당일 주요일정·공지 — 고정 일정도 예외 없이 체크·수정·삭제(권한 모두).
+   FIXED는 상수라 지울 수 없으므로 atc/cal/evx 에 흔적만 남기고, 수정하면 일반 항목으로 옮겨 담는다 */
+function renderEvents(){
+  const k=selDay, ov=evxCache[k]||{};
+  const fixed=(FIXED[k]||[]).map((f,i)=>({id:'f'+i,src:'fx',tm:f.tm,text:f.t,done:!!(ov['f'+i]||{}).done}))
+    .filter(x=>!(ov[x.id]||{}).del);
+  const evs=Object.entries(evCache[k]||{}).map(([id,e])=>({id,src:'ev',tm:e.tm,text:e.text,by:e.by,done:!!e.done}));
+  const all=[...fixed,...evs].sort((a,b)=>((a.tm||'')||'99')<((b.tm||'')||'99')?-1:1);
+  $('ev-list').innerHTML = all.length ? all.map(e=>
+    '<div class="item'+(e.done?' done':'')+'"><input type="checkbox" data-evck="'+e.src+'|'+e.id+'"'+(e.done?' checked':'')+'>'
+    +'<span class="txt" data-eved="'+e.src+'|'+e.id+'">'+(e.tm?'<i class="tm">'+esc(e.tm)+'</i>':'')+esc(e.text)+'</span>'
+    +(e.by?'<span class="by">'+esc(e.by)+'</span>':'')
+    +'<button class="del" data-evdel="'+e.src+'|'+e.id+'">✕</button></div>').join('')
+    : '<div class="empty">등록된 일정 · 공지 없음</div>';
+}
+const normTm = t => (t&&/^\d{3,4}$/.test(t)) ? t.padStart(4,'0').replace(/(\d\d)(\d\d)/,'$1:$2') : (t||'');
+function editEvent(src,id){
+  const k=selDay;
+  const cur = src==='fx' ? (FIXED[k]||[])[+id.slice(1)] : (evCache[k]||{})[id];
+  if(!cur) return;
+  const curTm=src==='fx'?cur.tm:cur.tm, curTx=src==='fx'?cur.t:cur.text;
+  const v=prompt('내용 | 시간(비우면 없음)', curTx+' | '+(curTm||''));
+  if(v===null) return;
+  const [text,tm]=v.split('|').map(x=>x.trim());
+  if(!text) return;
+  if(src==='ev') update(ref(db,'atc/cal/events/'+k+'/'+id),{text,tm:normTm(tm)});
+  else{ push(ref(db,'atc/cal/events/'+k),{text,tm:normTm(tm),by:myName(),ts:Date.now()});
+        update(ref(db,'atc/cal/evx/'+k+'/'+id),{del:true}); }
+  toast('수정 완료');
+}
 function renderNotes(){
   const k=selDay;
   const items=[...Object.entries(isCache[k]||{}).map(([id,e])=>({...e,id,src:'is',type:e.type||'특이'})),
@@ -862,6 +893,7 @@ $('rp-send').addEventListener('click',async ()=>{
   }catch(err){ toast('전송 실패: '+err.message); }
   finally{ $('rp-send').disabled=false; $('rp-send').textContent='저장 + 시트 전송'; }
 });
+const ckOpen={}; // 펼침 상태를 밖에 둔다 — renderCk가 매번 다시 그리면서 접히던 버그
 function renderCk(){
   const k=selDay; const dt=dayType(k);
   const wrap=$('ck-secs');
@@ -884,9 +916,9 @@ function renderCk(){
         +'<span class="txt">'+esc(e.text)+'</span><span class="by">'+esc(e.by||'')+'</span></div>';
     }).join('');
     const box=document.createElement('div');
-    box.className='ck-wrap'+(k===todayKey?' open':'');
+    box.className='ck-wrap'+((ckOpen[sec]!==undefined?ckOpen[sec]:k===todayKey)?' open':'');
     box.innerHTML='<div class="ck-h"><i class="tri">▶</i>'+EX_SEC_NAMES[sec]+'<span class="pr">'+done+'/'+total+'</span></div><div class="ck-body">'+rows+'</div>';
-    box.querySelector('.ck-h').addEventListener('click',()=>box.classList.toggle('open'));
+    box.querySelector('.ck-h').addEventListener('click',()=>{ckOpen[sec]=!box.classList.contains('open');box.classList.toggle('open');});
     wrap.appendChild(box);
   });
 }
@@ -895,11 +927,16 @@ $('d-next').addEventListener('click',()=>{selDay=clampKey(addDays(selDay,1));ren
 $('d-today').addEventListener('click',()=>{selDay=clampKey(todayKey);renderDay();});
 
 /* ── 입력 핸들러 ── */
+/* 시간은 기본 없음 — [시간]을 눌러야 입력칸이 열린다 */
+$('ev-tmtog').addEventListener('click',()=>{
+  const on=$('ev-tm').style.display==='none';
+  $('ev-tm').style.display=on?'':'none';
+  $('ev-tmtog').classList.toggle('on',on);
+  if(on) $('ev-tm').focus(); else $('ev-tm').value='';
+});
 $('ev-btn').addEventListener('click',()=>{
   const v=$('ev-inp').value.trim(); if(!v)return;
-  let tm=$('ev-tm').value.trim();
-  if(tm&&/^\d{3,4}$/.test(tm)) tm=tm.padStart(4,'0').replace(/(\d\d)(\d\d)/,'$1:$2');
-  push(ref(db,'atc/cal/events/'+selDay),{text:v,tm,by:myName(),ts:Date.now()});
+  push(ref(db,'atc/cal/events/'+selDay),{text:v,tm:normTm($('ev-tm').value.trim()),by:myName(),ts:Date.now()});
   $('ev-inp').value='';$('ev-tm').value='';
 });
 let ntType='특이';
@@ -922,13 +959,20 @@ document.addEventListener('keydown',e=>{
 /* 삭제·체크 위임 */
 document.addEventListener('click',e=>{
   const d=e.target.dataset||{};
-  if(d.delEv){ if(confirm('삭제할까요?')) remove(ref(db,'atc/cal/events/'+selDay+'/'+d.delEv)); }
+  if(d.eved){ const [src,id]=d.eved.split('|'); editEvent(src,id); }
+  if(d.evdel){ const [src,id]=d.evdel.split('|');
+    if(confirm('삭제할까요?')){
+      if(src==='ev') remove(ref(db,'atc/cal/events/'+selDay+'/'+id));
+      else update(ref(db,'atc/cal/evx/'+selDay+'/'+id),{del:true});
+    } }
   if(d.delIs){ if(confirm('삭제할까요?')) remove(ref(db,'atc/cal/issues/'+selDay+'/'+d.delIs)); }
   if(d.delSh){ if(confirm('삭제할까요?')) remove(ref(db,'atc/cal/share/'+selDay+'/'+d.delSh)); }
 });
 document.addEventListener('change',e=>{
   const t=e.target; if(t.type!=='checkbox')return;
   const stamp=myName()+' '+hhmm();
+  if(t.dataset.evck){ const [src,id]=t.dataset.evck.split('|');
+    update(ref(db, src==='ev' ? 'atc/cal/events/'+selDay+'/'+id : 'atc/cal/evx/'+selDay+'/'+id), {done:t.checked}); }
   if(t.dataset.sh) update(ref(db,'atc/cal/share/'+selDay+'/'+t.dataset.sh),{done:t.checked,doneBy:t.checked?stamp:null});
   if(t.dataset.ck){ const [sec,id]=t.dataset.ck.split('|');
     set(ref(db,'atc/exDone/'+selDay+'/'+sec+'/'+id), t.checked?{done:true,by:stamp}:null); }
@@ -945,7 +989,7 @@ function renderTeam(){
     const tel=String(t.phone||'').replace(/[^0-9+]/g,'');
     return '<div class="tm-row" data-id="'+id+'"><span class="i"><b>'+esc(t.name||'')+'</b><span>'+esc(t.role||'')+(t.phone?' · '+esc(t.phone):' · 번호 미입력')+'</span></span>'
       + '<a class="call'+(tel?'':' off')+'" href="'+(tel?'tel:'+tel:'#')+'">전화</a>'
-      + (isAdmin()&&teamCache?'<button class="ed" data-tm="'+id+'">✎</button><span class="grip">≡</span>':'')+'</div>';
+      + (isAdmin()?'<button class="ed" data-tm="'+id+'">✎</button><span class="grip">≡</span>':'')+'</div>';
   }).join('');
   $('team-list').querySelectorAll('[data-tm]').forEach(b=>b.addEventListener('click',()=>editTeam(b.dataset.tm)));
   initTeamDrag();
@@ -965,17 +1009,23 @@ function initTeamDrag(){
     const up=()=>{
       h.removeEventListener('pointermove',move); h.removeEventListener('pointerup',up); h.removeEventListener('pointercancel',up);
       row.classList.remove('dragging');
-      const upd={}; [...list.children].forEach((r,i)=>upd[r.dataset.id+'/o']=i);
-      update(ref(db,'atc/cal/team'),upd); toast('순서 저장');
+      const order=[...list.children].map(r=>r.dataset.id);
+      if(teamCache){ const upd={}; order.forEach((id,i)=>upd[id+'/o']=i); update(ref(db,'atc/cal/team'),upd); }
+      else { const seed={}; order.forEach((id,i)=>seed['t'+i]={...DEFAULT_TEAM[+id.slice(1)],o:i}); set(ref(db,'atc/cal/team'),seed); }
+      toast('순서 저장');
     };
     h.addEventListener('pointermove',move); h.addEventListener('pointerup',up); h.addEventListener('pointercancel',up);
   }));
 }
 function editTeam(id){
-  const t=(teamCache||{})[id]||{};
+  const t=(teamCache||{})[id] || (id[0]==='d' ? DEFAULT_TEAM[+id.slice(1)] : {}) || {};
   const v=prompt('이름 | 역할 | 전화번호  (이름을 비우면 삭제)', [t.name||'',t.role||'',t.phone||''].join(' | '));
   if(v===null) return;
   const [name,role,phone]=v.split('|').map(x=>x.trim());
+  if(!teamCache){ // 아직 DB에 없으면 기본 명단을 통째로 올리면서 이 줄만 반영
+    const seed={};
+    teamRows().forEach(([rid,t2],i)=>{ seed['t'+i] = rid===id ? {name,role:role||'',phone:phone||'',o:i} : {...t2,o:i}; });
+    set(ref(db,'atc/cal/team'),seed); toast('저장'); return; }
   if(!name){ if(confirm('삭제할까요?')) remove(ref(db,'atc/cal/team/'+id)); return; }
   update(ref(db,'atc/cal/team/'+id),{name,role:role||'',phone:phone||''});
   toast('저장');
