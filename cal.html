@@ -15,6 +15,7 @@
     /* 2026-08-30 클라라: 단색(빨강). 포스터 나머지 색 변수는 빨강으로 접어 사용처를 일괄 전환 */
     --red:#F0604A; --red-soft:rgba(240,96,74,.15);
     --pur:var(--red); --pur-soft:var(--red-soft);
+    --vio:#7D6DF2; --vio-soft:rgba(125,109,242,.16); /* 출결 탭 전용 — 여기 말고는 쓰지 않는다 */
     --grn:var(--red); --grn-ink:var(--red); --grn-soft:var(--red-soft);
     --blu:var(--red); --blu-soft:var(--red-soft);
     --num:ui-monospace,"SF Mono",Menlo,monospace;
@@ -74,6 +75,8 @@
   .views button{border:1px solid var(--line);background:var(--card);border-radius:999px;
     padding:7px 14px;font-size:13px;font-weight:800;color:var(--ink2)}
   .views button.on{border-color:var(--red);background:var(--red-soft);color:var(--red)}
+  .views button[data-v=att]{color:var(--vio);border-color:rgba(125,109,242,.4)}
+  .views button[data-v=att].on{border-color:var(--vio);background:var(--vio-soft);color:var(--vio)}
 
   .page{display:none;padding:18px 20px 64px}
   .page.on{display:block}
@@ -232,8 +235,10 @@
     border-radius:14px;padding:6px 13px;font-size:12px;font-weight:800;text-decoration:none}
   .tm-row a.call.off{border-color:var(--line);background:var(--well);color:var(--ink3);pointer-events:none}
   .tm-row button.ed{flex:none;border:0;background:none;color:var(--ink3);font-size:12px;padding:0 2px}
-  .tm-row .grip{flex:none;color:var(--ink3);font-size:15px;padding:2px 4px;cursor:grab;touch-action:none;user-select:none}
-  .tm-row.dragging{opacity:.6;background:var(--well);border-radius:6px}
+  .grip{flex:none;color:var(--ink3);font-size:15px;padding:2px 4px;cursor:grab;touch-action:none;user-select:none;line-height:1}
+  .dragging{opacity:.55;background:var(--well);border-radius:6px}
+  .item .grip{font-size:13px;padding:1px 2px}
+  .item .del{font-size:12px}
   .tm-add,.tm-lo{width:100%;border:1px solid var(--line);background:var(--well);color:var(--ink2);
     border-radius:5px;padding:11px;font-size:12.5px;font-weight:800;margin-top:12px}
   .tm-lo{border-color:var(--red);color:var(--red);background:var(--red-soft)}
@@ -296,7 +301,25 @@
     <button data-v="day" class="on">일</button>
     <button data-v="week">주</button>
     <button data-v="month">월</button>
+    <button data-v="att">출결</button>
     <button data-v="sheet">근무일지</button>
+  </div>
+
+  <!-- 출결 -->
+  <div class="page" data-page="att">
+    <div class="dnav">
+      <button id="a-prev">‹</button>
+      <div class="dt" id="a-title"></div>
+      <button id="a-next">›</button>
+      <span class="bdg" id="a-bdg"></span>
+      <span class="sp"></span>
+      <button class="today-btn" id="a-today">오늘</button>
+    </div>
+    <div class="sec">
+      <div class="sec-t">출결 확인<span class="r" id="att-sum"></span></div>
+      <div id="att-list"></div>
+      <div class="att-note" id="att-note"></div>
+    </div>
   </div>
 
   <!-- 근무일지 (앱 내 입력 → 구글시트 전송) -->
@@ -380,11 +403,6 @@
         <button class="tmbtn" id="ev-tmtog">시간</button>
         <button id="ev-btn">추가</button>
       </div>
-    </div>
-
-    <div class="sec fold" id="sec-att">
-      <div class="sec-t" id="att-h"><i class="tri">▶</i>출결 확인<span class="r" id="att-sum"></span></div>
-      <div class="fold-b"><div id="att-list"></div><div class="att-note" id="att-note"></div></div>
     </div>
 
     <div class="sec" id="sec-ck">
@@ -610,8 +628,14 @@ function switchView(v){
   renderAll();
 }
 document.querySelectorAll('.views button[data-v]').forEach(b=>b.addEventListener('click',()=>switchView(b.dataset.v)));
-function renderAll(){ if(curView==='month')renderMonth(); else if(curView==='week')renderWeek();
-  else if(curView==='sheet')renderWorklog(); renderDay(); }
+function renderAll(){
+  if(curView==='month')renderMonth(); else if(curView==='week')renderWeek();
+  else if(curView==='sheet')renderWorklog();
+  const dt=dayType(clampKey(selDay));
+  $('a-title').innerHTML=dTitle(clampKey(selDay),dt); setBdg($('a-bdg'),dt);
+  $('a-today').style.display = selDay===todayKey?'none':'';
+  renderDay();
+}
 
 /* 카운트 헬퍼 */
 const cnt = (cache,k)=> Object.keys(cache[k]||{}).length;
@@ -702,16 +726,32 @@ function renderDay(){
    FIXED는 상수라 지울 수 없으므로 atc/cal/evx 에 흔적만 남기고, 수정하면 일반 항목으로 옮겨 담는다 */
 function renderEvents(){
   const k=selDay, ov=evxCache[k]||{};
-  const fixed=(FIXED[k]||[]).map((f,i)=>({id:'f'+i,src:'fx',tm:f.tm,text:f.t,done:!!(ov['f'+i]||{}).done}))
+  const fixed=(FIXED[k]||[]).map((f,i)=>({id:'f'+i,src:'fx',tm:f.tm,text:f.t,
+      done:!!(ov['f'+i]||{}).done, o:(ov['f'+i]||{}).o}))
     .filter(x=>!(ov[x.id]||{}).del);
-  const evs=Object.entries(evCache[k]||{}).map(([id,e])=>({id,src:'ev',tm:e.tm,text:e.text,by:e.by,done:!!e.done}));
-  const all=[...fixed,...evs].sort((a,b)=>((a.tm||'')||'99')<((b.tm||'')||'99')?-1:1);
-  $('ev-list').innerHTML = all.length ? all.map(e=>
-    '<div class="item'+(e.done?' done':'')+'"><input type="checkbox" data-evck="'+e.src+'|'+e.id+'"'+(e.done?' checked':'')+'>'
-    +'<span class="txt" data-eved="'+e.src+'|'+e.id+'">'+(e.tm?'<i class="tm">'+esc(e.tm)+'</i>':'')+esc(e.text)+'</span>'
+  const evs=Object.entries(evCache[k]||{}).map(([id,e])=>({id,src:'ev',tm:e.tm,text:e.text,by:e.by,done:!!e.done,o:e.o}));
+  const all=[...fixed,...evs].sort((a,b)=>{
+    const ao=a.o==null?999:a.o, bo=b.o==null?999:b.o;      // 손으로 옮긴 순서가 우선, 없으면 시간순
+    return ao!==bo ? ao-bo : (((a.tm||'99')<(b.tm||'99'))?-1:1);
+  });
+  $('ev-list').innerHTML = all.length ? all.map(e=>{
+    const key=e.src+'|'+e.id;
+    return '<div class="item'+(e.done?' done':'')+'" data-id="'+key+'">'
+    +'<input type="checkbox" data-evck="'+key+'"'+(e.done?' checked':'')+'>'
+    +'<span class="txt">'+(e.tm?'<i class="tm">'+esc(e.tm)+'</i>':'')+esc(e.text)+'</span>'
     +(e.by?'<span class="by">'+esc(e.by)+'</span>':'')
-    +'<button class="del" data-evdel="'+e.src+'|'+e.id+'">✕</button></div>').join('')
-    : '<div class="empty">등록된 일정 · 공지 없음</div>';
+    +'<button class="del" data-eved="'+key+'">✎</button>'
+    +'<button class="del" data-evdel="'+key+'">✕</button>'
+    +'<span class="grip">≡</span></div>';
+  }).join('') : '<div class="empty">등록된 일정 · 공지 없음</div>';
+  makeSortable($('ev-list'),order=>{
+    const upd={}, ux={};
+    order.forEach((key,i)=>{ const [src,id]=key.split('|');
+      if(src==='ev') upd[id+'/o']=i; else ux[id+'/o']=i; });
+    if(Object.keys(upd).length) update(ref(db,'atc/cal/events/'+k),upd);
+    if(Object.keys(ux).length)  update(ref(db,'atc/cal/evx/'+k),ux);
+    toast('순서 저장');
+  });
 }
 const normTm = t => (t&&/^\d{3,4}$/.test(t)) ? t.padStart(4,'0').replace(/(\d\d)(\d\d)/,'$1:$2') : (t||'');
 function editEvent(src,id){
@@ -747,7 +787,9 @@ function renderNotes(){
 /* ── 출결 (전시장 와이파이 = 공인 IP 대조) ── */
 const attOf = k => attCache[k]||{};
 const workersOf = k => ATT_ROSTER.filter(p=>attOf(k)[p.id]&&attOf(k)[p.id].in).map(p=>p.name);
-$('att-h').addEventListener('click',()=>$('sec-att').classList.toggle('open'));
+$('a-prev').addEventListener('click',()=>{selDay=clampKey(addDays(selDay,-1));renderAll();});
+$('a-next').addEventListener('click',()=>{selDay=clampKey(addDays(selDay,1));renderAll();});
+$('a-today').addEventListener('click',()=>{selDay=clampKey(todayKey);renderAll();});
 
 function renderAtt(){
   const k=selDay, rec=attOf(k), today=(k===todayKey);
@@ -994,28 +1036,38 @@ function renderTeam(){
   $('team-list').querySelectorAll('[data-tm]').forEach(b=>b.addEventListener('click',()=>editTeam(b.dataset.tm)));
   initTeamDrag();
 }
-/* 순서 바꾸기 — 마우스·손가락 공통(Pointer Events). 핸들에 touch-action:none이라 끌어도 스크롤되지 않는다 */
-function initTeamDrag(){
-  const list=$('team-list');
+/* 순서 바꾸기 — 마우스·손가락 공통.
+   ⚠️ setPointerCapture는 쓰지 않는다: 드래그 중 행을 insertBefore로 옮기면 그 순간 캡처가 풀려
+   (문서에서 잠깐 떨어지므로) 첫 이동 뒤로는 pointermove가 끊긴다. window에서 받으면 DOM 이동과 무관.
+   핸들의 touch-action:none 때문에 손가락으로 끌어도 페이지가 스크롤되지 않는다. */
+function makeSortable(list,onDrop){
   list.querySelectorAll('.grip').forEach(h=>h.addEventListener('pointerdown',e=>{
     e.preventDefault();
-    const row=h.closest('.tm-row');
-    row.classList.add('dragging'); h.setPointerCapture(e.pointerId);
+    const row=h.closest('[data-id]'); if(!row) return;
+    row.classList.add('dragging');
     const move=ev=>{
       const y=ev.clientY;
-      const after=[...list.children].find(r=>r!==row && y < r.getBoundingClientRect().top + r.offsetHeight/2);
+      const after=[...list.children].find(r=>r!==row && r.dataset.id && y < r.getBoundingClientRect().top + r.offsetHeight/2);
       if(after) list.insertBefore(row,after); else list.appendChild(row);
     };
     const up=()=>{
-      h.removeEventListener('pointermove',move); h.removeEventListener('pointerup',up); h.removeEventListener('pointercancel',up);
+      window.removeEventListener('pointermove',move);
+      window.removeEventListener('pointerup',up);
+      window.removeEventListener('pointercancel',up);
       row.classList.remove('dragging');
-      const order=[...list.children].map(r=>r.dataset.id);
-      if(teamCache){ const upd={}; order.forEach((id,i)=>upd[id+'/o']=i); update(ref(db,'atc/cal/team'),upd); }
-      else { const seed={}; order.forEach((id,i)=>seed['t'+i]={...DEFAULT_TEAM[+id.slice(1)],o:i}); set(ref(db,'atc/cal/team'),seed); }
-      toast('순서 저장');
+      onDrop([...list.children].map(r=>r.dataset.id).filter(Boolean));
     };
-    h.addEventListener('pointermove',move); h.addEventListener('pointerup',up); h.addEventListener('pointercancel',up);
+    window.addEventListener('pointermove',move);
+    window.addEventListener('pointerup',up);
+    window.addEventListener('pointercancel',up);
   }));
+}
+function initTeamDrag(){
+  makeSortable($('team-list'),order=>{
+    if(teamCache){ const upd={}; order.forEach((id,i)=>upd[id+'/o']=i); update(ref(db,'atc/cal/team'),upd); }
+    else { const seed={}; order.forEach((id,i)=>seed['t'+i]={...DEFAULT_TEAM[+id.slice(1)],o:i}); set(ref(db,'atc/cal/team'),seed); }
+    toast('순서 저장');
+  });
 }
 function editTeam(id){
   const t=(teamCache||{})[id] || (id[0]==='d' ? DEFAULT_TEAM[+id.slice(1)] : {}) || {};
